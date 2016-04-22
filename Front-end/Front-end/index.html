@@ -11,6 +11,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/datepicker.min.js"></script>
     <script src="Scripts/conditionize.jquery.js"></script>
+    <script src="Scripts/eventsHandler.js"></script>
 </head>
 <body style="background-color:steelblue">
 
@@ -22,7 +23,7 @@
         <br /><br />
         <div class="text-center row col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-md-offset-2 col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color:lightskyblue; border-radius:10px">
             <h2 class="text-center">Lista leków</h2>
-            <div class="list-group col-lg-offset-3 col-lg-6 text-center col-lg-offset-3 col-md-offset-3 col-md-6 col-md-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
+            <div id="list" class="list-group col-lg-offset-3 col-lg-6 text-center col-lg-offset-3 col-md-offset-3 col-md-6 col-md-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
                 <a data-toggle="collapse" href="#detail1" class="list-group-item list-group-item-success">
                     <h4>Witamina C</h4>
                     <div id="detail1" class="collapse">
@@ -60,7 +61,7 @@
             <br />
             <button data-toggle="modal" data-target="#form" type="button" class="col-lg-offset-4 col-lg-4 text-center col-lg-offset-4 col-md-offset-4 col-md-4 col-md-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3 btn btn-primary">Dodaj lek</button>
             <div class="row col-lg-10"><br /></div>
-            <div id="form" class="modal fade" role="dialog">
+            <div id="form" name="form" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -72,28 +73,28 @@
                                 <br />
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group col-lg-7">
-                                        <label for="nazwa_leku">Nazwa leku<a style="color:red">*</a>:</label>
-                                        <input type="text" class="form-control" id="nazwa_leku">
+                                        <label for="drug_name">Nazwa leku<a style="color:red">*</a>:</label>
+                                        <input type="text" class="form-control" name="drug_name">
                                     </div>
                                     <div class="form-group col-lg-5">
-                                        <label for="dawka">Dawka<a style="color:red">*</a>:</label>
-                                        <input type="text" class="form-control" id="dawka">
+                                        <label for="dose">Dawka<a style="color:red">*</a>:</label>
+                                        <input type="text" class="form-control" id="dose">
                                     </div>
                                     <div class="form-group col-lg-5">
-                                        <label for="godzina">O której<a style="color:red">*</a>:</label>
-                                        <input type="time" class="form-control" id="godzina">
+                                        <label for="what_time">O której<a style="color:red">*</a>:</label>
+                                        <input type="time" class="form-control" id="what_time">
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <label for="jak_dlugo">Najpóźniej ile godzin po<a style="color:red">*</a>:</label>
-                                        <input type="number" class="form-control" id="jak_dlugo" placeholder="2">
+                                        <label for="how_long">Najpóźniej ile godzin po<a style="color:red">*</a>:</label>
+                                        <input type="number" class="form-control" id="how_long" value="2">
                                     </div>
                                     <div class="form-group col-lg-6 ">
-                                        <label for="dzien_startu">Od dnia<a style="color:red">*</a>:</label>
-                                        <input data-provide="datepicker" class="form-control" id="dzien_startu">
+                                        <label for="start_day">Od dnia<a style="color:red">*</a>:</label>
+                                        <input data-provide="datepicker" class="form-control" id="start_day">
                                     </div>
                                     <div class="form-group col-lg-6 ">
-                                        <label for="dzien_startu">Do dnia:</label>
-                                        <input data-provide="datepicker" class="form-control" id="dzien_startu">
+                                        <label for="end_day">Do dnia:</label>
+                                        <input data-provide="datepicker" class="form-control" id="end_day">
                                     </div>
                                     <div class="form-group col-lg-12 ">
                                         <label for="comment">Dodatkowe informacje:</label>
@@ -115,37 +116,37 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-lg-12 conditional" data-cond-option="freq" data-cond-value="evr_x_days">
-                                        <label for="sel1">Co ile dni:</label>
-                                        <input type="number" id="co_ile" class="form-control" />
+                                        <label for="freq_opt">Co ile dni:</label>
+                                        <input type="number" id="freq_opt" class="form-control" />
                                     </div>
                                     <div class="form-group col-lg-12 text-left conditional" data-cond-option="freq" data-cond-value="week_days">
                                         <label>W które dni tygodnia:</label>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Poniedziałek</label>
+                                            <label><input type="checkbox" id="freq_opt1">Poniedziałek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Wtorek</label>
+                                            <label><input type="checkbox" id="freq_opt2">Wtorek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Środa</label>
+                                            <label><input type="checkbox" id="freq_opt3">Środa</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Czwartek</label>
+                                            <label><input type="checkbox" id="freq_opt4">Czwartek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Piątek</label>
+                                            <label><input type="checkbox" id="freq_opt5">Piątek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Sobota</label>
+                                            <label><input type="checkbox" id="freq_opt6">Sobota</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Niedziela</label>
+                                            <label><input type="checkbox" id="freq_opt7">Niedziela</label>
                                         </div>
                                     </div>
                                     <script type="text/javascript">
                                         $('.conditional').conditionize();
                                     </script>
-                                    <button type="submit" class="btn btn-default col-lg-5">Dodaj</button>
+                                    <button type="submit" class="btn btn-default col-lg-5" onclick="return add('form')">Dodaj</button>
                                 </form>
                                 <div class="row col-lg-10"><br /></div>
                             </div>
@@ -154,6 +155,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row col-lg-10"><br /></div>
             <input type="button" onclick="location.href='login.html';" class="btn btn-danger col-lg-offset-4 col-lg-4 col-lg-offset-4" value="Wyloguj się">
             <div class="row col-lg-10"><br /></div>
