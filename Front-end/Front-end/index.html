@@ -10,8 +10,10 @@
     <script src="Scripts/jquery-2.2.3.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/datepicker.min.js"></script>
+    <script src="Scripts/conditionize.jquery.js"></script>
 </head>
 <body style="background-color:steelblue">
+
     <div class="col-lg-offset-2 col-lg-8 col-lg-offset-2 col-md-offset-1 col-md-10 col-md-offset-1 col-sm-offset-1 col-sm-10 col-sm-offset-1" style="background-color:lightseagreen; border-radius:10px"><h1 class="text-center">Aplikacja przypominająca o lekach</h1></div>
     <div class="container col-lg-offset-2 col-lg-8 col-lg-offset-2 col-md-offset-1 col-md-10 col-md-offset-1 col-sm-offset-1 col-sm-10 col-sm-offset-1" style="background-color:lightsteelblue; border-radius:10px">
         <div class="row col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-md-offset-2 col-sm-offset-2 col-sm-8 col-sm-offset-2 text-center" style="background-color:lightblue; border-radius:10px">
@@ -27,7 +29,7 @@
                         <p><b>Godzina: </b>7:00</p>
                         <p><b>Dawka: </b>2 tabletki</p>
                         <p><b>Częstotliwość: </b>Codziennie</p>
-                    
+
                     </div>
                 </a>
                 <a data-toggle="collapse" href="#detail2" class="list-group-item list-group-item-success">
@@ -60,7 +62,6 @@
             <div class="row col-lg-10"><br /></div>
             <div id="form" class="modal fade" role="dialog">
                 <div class="modal-dialog">
-
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -98,20 +99,26 @@
                                         <label for="comment">Dodatkowe informacje:</label>
                                         <textarea class="form-control col-lg-4" id="comment"></textarea>
                                     </div>
-                                    <div class="form-group col-lg-12 text-center">
-                                        <label for="kiedy">Powtarzaj:</label>
-                                        <select class="form-control" id="kiedy">
-                                            <option>Codziennie</option>
-                                            <option>Co tydzień</option>
-                                            <option>Co ileś dni</option>
-                                            <option>W konkretne dni tygodnia</option>
-                                        </select>
+                                    <div class="form-group col-lg-12 text-left">
+                                        <label>W które dni tygodnia:</label>
+                                        <div class="radio">
+                                            <label><input type="radio" value="everyday" name="freq">Codziennie</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" value="evr_week" name="freq">Co tydzień</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" value="evr_x_days" name="freq">Co ileś dni</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" value="week_days" name="freq">W dane dni tygodnia</label>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-12">
+                                    <div class="form-group col-lg-12 conditional" data-cond-option="freq" data-cond-value="evr_x_days">
                                         <label for="sel1">Co ile dni:</label>
                                         <input type="number" id="co_ile" class="form-control" />
                                     </div>
-                                    <div class="form-group col-lg-12 text-left">
+                                    <div class="form-group col-lg-12 text-left conditional" data-cond-option="freq" data-cond-value="week_days">
                                         <label>W które dni tygodnia:</label>
                                         <div class="checkbox">
                                             <label><input type="checkbox" value="">Poniedziałek</label>
@@ -135,21 +142,23 @@
                                             <label><input type="checkbox" value="">Niedziela</label>
                                         </div>
                                     </div>
-
+                                    <script type="text/javascript">
+                                        $('.conditional').conditionize();
+                                    </script>
                                     <button type="submit" class="btn btn-default col-lg-5">Dodaj</button>
                                 </form>
                                 <div class="row col-lg-10"><br /></div>
                             </div>
                             <div class="row col-lg-10"><br /></div>
                         </div>
-                        </div>
                     </div>
                 </div>
+            </div>
             <div class="row col-lg-10"><br /></div>
             <input type="button" onclick="location.href='login.html';" class="btn btn-danger col-lg-offset-4 col-lg-4 col-lg-offset-4" value="Wyloguj się">
             <div class="row col-lg-10"><br /></div>
-</div>
-                </div>
-            
+        </div>
+    </div>
+
 </body>
 </html>
