@@ -23,41 +23,7 @@
         <br /><br />
         <div class="text-center row col-lg-offset-3 col-lg-6 col-lg-offset-3 col-md-offset-2 col-md-8 col-md-offset-2 col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color:lightskyblue; border-radius:10px">
             <h2 class="text-center">Lista leków</h2>
-            <div id="list" class="list-group col-lg-offset-3 col-lg-6 text-center col-lg-offset-3 col-md-offset-3 col-md-6 col-md-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3">
-                <a data-toggle="collapse" href="#detail1" class="list-group-item list-group-item-success">
-                    <h4>Witamina C</h4>
-                    <div id="detail1" class="collapse">
-                        <p><b>Godzina: </b>7:00</p>
-                        <p><b>Dawka: </b>2 tabletki</p>
-                        <p><b>Częstotliwość: </b>Codziennie</p>
-
-                    </div>
-                </a>
-                <a data-toggle="collapse" href="#detail2" class="list-group-item list-group-item-success">
-                    <h4>Acodin</h4>
-                    <div id="detail2" class="collapse">
-                        <p><b>Godzina: </b>17:00</p>
-                        <p><b>Dawka: </b>wszystkie</p>
-                        <p><b>Częstotliwość: </b>Co tydzień</p>
-                    </div>
-                </a>
-                <a data-toggle="collapse" href="#detail3" class="list-group-item list-group-item-warning">
-                    <h4>Tran</h4>
-                    <div id="detail3" class="collapse">
-                        <p><b>Godzina: </b>8:00</p>
-                        <p><b>Dawka: </b>2 łyżeczki</p>
-                        <p><b>Częstotliwość: </b>Codziennie</p>
-                    </div>
-                </a>
-                <a data-toggle="collapse" href="#detail4" class="list-group-item list-group-item-danger">
-                    <h4>Viagra</h4>
-                    <div id="detail4" class="collapse">
-                        <p><b>Godzina: </b>20:00</p>
-                        <p><b>Dawka: </b>2 tabletki</p>
-                        <p><b>Częstotliwość: </b>Co 3 dni</p>
-                    </div>
-                </a>
-            </div>
+            <div id="list" class="list-group col-lg-offset-3 col-lg-6 text-center col-lg-offset-3 col-md-offset-3 col-md-6 col-md-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3"></div>
             <br />
             <button data-toggle="modal" data-target="#form" type="button" class="col-lg-offset-4 col-lg-4 text-center col-lg-offset-4 col-md-offset-4 col-md-4 col-md-offset-4 col-sm-offset-3 col-sm-6 col-sm-offset-3 btn btn-primary">Dodaj lek</button>
             <div class="row col-lg-10"><br /></div>
@@ -146,7 +112,7 @@
                                     <script type="text/javascript">
                                         $('.conditional').conditionize();
                                     </script>
-                                    <button type="submit" class="btn btn-default col-lg-5" onclick="return add('form')">Dodaj</button>
+                                    <button type="submit" class="btn btn-default col-lg-5" onclick="add()">Dodaj</button>
                                 </form>
                                 <div class="row col-lg-10"><br /></div>
                             </div>
