@@ -7,7 +7,7 @@
         start_day: "13.05.2016",
         end_day: "",
         comment: "",
-        freq: 1,
+        freq: "everyday",
         freq_opt: 0,
         freq_opts: [
             false,
