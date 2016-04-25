@@ -22,13 +22,13 @@
 ]
 
 var days_of_week = [
-    "poniedziałek",
-    "wtorek",
-    "środa",
-    "czwartek",
-    "piątek",
-    "sobota",
-    "niedziela"
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota",
+    "Niedziela"
 ]
 
 function load_doses() {
@@ -49,10 +49,10 @@ function load_doses() {
                 freq = "Co " + doses[i].freq_opt + " dni";
                 break;
             case "4":
-                freq = "W ";
+                freq = "";
                 for (var j = 0; j < 7; j++) {
-                    if (dose[i].freq_opts[j] == true)
-                        freq = freq + days_of_week[j];
+                    if (doses[i].freq_opts[j] == true)
+                        freq = freq + " " + days_of_week[j];
                 }
                 break;
         }
