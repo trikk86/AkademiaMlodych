@@ -7,7 +7,7 @@
         start_day: "13.05.2016",
         end_day: "",
         comment: "",
-        freq: "everyday",
+        freq: "1",
         freq_opt: 0,
         freq_opts: [
             false,
@@ -21,17 +21,50 @@
     }
 ]
 
-var counter = 1;
+var days_of_week = [
+    "poniedziałek",
+    "wtorek",
+    "środa",
+    "czwartek",
+    "piątek",
+    "sobota",
+    "niedziela"
+]
 
 function load_doses() {
+    $("#list").empty();
+
+    var freq = "";
+
     for (i = 0; i < doses.length; i++) {
+
+        switch (doses[i].freq) {
+            case "1":
+                freq = "Codziennie";
+                break;
+            case "2":
+                freq = "Co tydzień";
+                break;
+            case "3":
+                freq = "Co " + doses[i].freq_opt + " dni";
+                break;
+            case "4":
+                freq = "W ";
+                for (var j = 0; j < 7; j++) {
+                    if (dose[i].freq_opts[j] == true)
+                        freq = freq + days_of_week[j];
+                }
+                break;
+        }
+
         $("#list").prepend(
-    '<a data-toggle="collapse" href="#detail' + i + '" class="list-group-item list-group-item-success">' +
+    '<a data-toggle="collapse" href="#detail' + i + '" class="list-group-item list-group-item-success" id="' + i + '">' +
                 '<h4>' + doses[i].drug_name + '</h4>' +
                 '<div id="detail' + i + '" class="collapse">' +
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
-                    '<p><b>Częstotliwość: </b>' + doses[i].freq + '</p>' +
+                    '<p><b>Częstotliwość: </b>' + freq + '</p>' +
+                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1);">Usuń</button>' +
                 '</div>' +
             '</a>'
          );
@@ -42,13 +75,23 @@ $(window).load(function () {
     load_doses();
 });
 
-load_doses();
+
 
 function add() {
 
     event.preventDefault();
 
     var form = document.forms[0];
+
+    var freq1 = document.getElementsByName("freq");
+    
+    var cos;
+
+    for (var i = 0; i < freq1.length; i++) {
+        if (freq1[i].checked == true) {
+            cos = freq1[i].value;
+        }
+    }
 
     var newDose = {
         drug_name: form.drug_name.value,
@@ -58,7 +101,7 @@ function add() {
         start_day: form.start_day.value,
         end_day: form.end_day.value,
         comment: form.comment.value,
-        freq: form.freq.value,
+        freq: cos,
         freq_opt: form.freq_opt.value,
         freq_opts: [
             form.freq_opt1.checked,
@@ -71,24 +114,9 @@ function add() {
         ]
     }
 
-    counter = counter + 1;
-
     doses.push(newDose);
 
-    
-
-    $("#list").prepend(
-    '<a data-toggle="collapse" href="#detail' + counter + '" class="list-group-item list-group-item-success">' +
-                '<h4>' + newDose.drug_name + '</h4>' +
-                '<div id="detail' + counter + '" class="collapse">' +
-                    '<p><b>Godzina: </b>' + newDose.what_time + '</p>' +
-                    '<p><b>Dawka: </b>' + newDose.dose + '</p>' +
-                    '<p><b>Częstotliwość: </b>' + newDose.freq + '</p>' +
-                '</div>' +
-            '</a>'
-    );
-
-    
+    load_doses();
 
     $('#form').modal('hide');
 

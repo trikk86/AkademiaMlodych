@@ -66,26 +66,26 @@
                                         <label for="comment">Dodatkowe informacje:</label>
                                         <textarea class="form-control col-lg-4" id="comment"></textarea>
                                     </div>
-                                    <div class="form-group col-lg-12 text-left">
+                                    <div class="form-group col-lg-12 text-left" >
                                         <label>W które dni tygodnia:</label>
                                         <div class="radio">
-                                            <label><input type="radio" value="everyday" name="freq">Codziennie</label>
+                                            <label><input type="radio" value=1 name="freq">Codziennie</label>
                                         </div>
                                         <div class="radio">
-                                            <label><input type="radio" value="evr_week" name="freq">Co tydzień</label>
+                                            <label><input type="radio" value=2 name="freq">Co tydzień</label>
                                         </div>
                                         <div class="radio">
-                                            <label><input type="radio" value="evr_x_days" name="freq">Co ileś dni</label>
+                                            <label><input type="radio" value=3 name="freq">Co ileś dni</label>
                                         </div>
                                         <div class="radio">
-                                            <label><input type="radio" value="week_days" name="freq">W dane dni tygodnia</label>
+                                            <label><input type="radio" value=4 name="freq">W dane dni tygodnia</label>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-12 conditional" data-cond-option="freq" data-cond-value="evr_x_days">
+                                    <div class="form-group col-lg-12 conditional" data-cond-option="freq" data-cond-value=3>
                                         <label for="freq_opt">Co ile dni:</label>
                                         <input type="number" id="freq_opt" class="form-control" />
                                     </div>
-                                    <div class="form-group col-lg-12 text-left conditional" data-cond-option="freq" data-cond-value="week_days">
+                                    <div class="form-group col-lg-12 text-left conditional" data-cond-option="freq" data-cond-value=4>
                                         <label>W które dni tygodnia:</label>
                                         <div class="checkbox">
                                             <label><input type="checkbox" id="freq_opt1">Poniedziałek</label>
