@@ -1,24 +1,5 @@
 ﻿var doses = [
-    {
-        drug_name: "Witamina C",
-        dose: "2 tabletki",
-        what_time: "7:00",
-        how_long: 3,
-        start_day: "13.05.2016",
-        end_day: "",
-        comment: "",
-        freq: "1",
-        freq_opt: 0,
-        freq_opts: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ]
-    }
+    
 ]
 
 var days_of_week = [
@@ -65,6 +46,7 @@ function load_doses() {
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
                     '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1);">Usuń</button>' +
+                    '<button data-toggle="modal" data-target="#form" type="button" class="btn" onclick="duplicate(' + i + ')">Duplikuj</button>' +
                 '</div>' +
             '</a>'
          );
@@ -114,13 +96,64 @@ function add() {
         ]
     }
 
-    doses.push(newDose);
+    var alreadyOn = false;
 
-    load_doses();
+    for(var i = 0; i < doses.length; i++) {
+        if (JSON.stringify(newDose) === JSON.stringify(doses[i])) {
+            alreadyOn = true;
+        }
+    }
+
+    if (!alreadyOn) {
+        doses.push(newDose);
+
+        load_doses();
+    }
 
     $('#form').modal('hide');
 
     form.reset();
+}
+
+function duplicate(i) {
+    $(document).ready();
+
+    var dose = doses[i];
+    
+    document.forms[0].drug_name.value = dose.drug_name;
+    document.forms[0].dose.value = dose.dose;
+    document.forms[0].what_time.value = dose.what_time;
+    document.forms[0].how_long.value = dose.how_long;
+    document.forms[0].start_day.value = dose.start_day;
+    document.forms[0].end_day.value = dose.end_day;
+    document.forms[0].comment.value = dose.comment;
+
+    switch (dose.freq) {
+        case "1":
+            document.getElementsByName("freq")[0].checked = true;
+            break;
+        case "2":
+            document.getElementsByName("freq")[1].checked = true;
+            break;
+        case "3":
+            document.getElementsByName("freq")[2].checked = true;
+            break;
+        case "4":
+            document.getElementsByName("freq")[3].checked = true;
+            break;
+    }
+
+    document.forms[0].freq_opt.value = dose.freq_opt;
+
+    $(document).ready();
+
+    document.forms[0].freq_opt1.checked = dose.freq_opts[0];
+    document.forms[0].freq_opt2.checked = dose.freq_opts[1];
+    document.forms[0].freq_opt3.checked = dose.freq_opts[2];
+    document.forms[0].freq_opt4.checked = dose.freq_opts[3];
+    document.forms[0].freq_opt5.checked = dose.freq_opts[4];
+    document.forms[0].freq_opt6.checked = dose.freq_opts[5];
+    document.forms[0].freq_opt7.checked = dose.freq_opts[6];
 }
 
 

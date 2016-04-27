@@ -31,7 +31,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal" onclick="document.forms[0].reset()">&times;</button>
                             <h4 class="modal-title">Dodaj lek</h4>
                         </div>
                         <div class="modal-body row">
@@ -88,25 +88,25 @@
                                     <div class="form-group col-lg-12 text-left conditional" data-cond-option="freq" data-cond-value=4>
                                         <label>W które dni tygodnia:</label>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt1">Poniedziałek</label>
+                                            <label><input type="checkbox" id="freq_opt1" name="freq_opts">Poniedziałek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt2">Wtorek</label>
+                                            <label><input type="checkbox" id="freq_opt2" name="freq_opts">Wtorek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt3">Środa</label>
+                                            <label><input type="checkbox" id="freq_opt3" name="freq_opts">Środa</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt4">Czwartek</label>
+                                            <label><input type="checkbox" id="freq_opt4" name="freq_opts">Czwartek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt5">Piątek</label>
+                                            <label><input type="checkbox" id="freq_opt5" name="freq_opts">Piątek</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt6">Sobota</label>
+                                            <label><input type="checkbox" id="freq_opt6" name="freq_opts">Sobota</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" id="freq_opt7">Niedziela</label>
+                                            <label><input type="checkbox" id="freq_opt7" name="freq_opts">Niedziela</label>
                                         </div>
                                     </div>
                                     <script type="text/javascript">
