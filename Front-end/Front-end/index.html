@@ -37,7 +37,7 @@
                         <div class="modal-body row">
                             <div class="col-lg-offset-1 col-lg-10 text-center col-lg-offset-1 col-md-offset-3 col-md-6 col-md-offset-3 col-sm-offset-3 col-sm-6 col-sm-offset-3" style="background-color:white; border-radius:10px">
                                 <br />
-                                <form role="form" class="form-horizontal">
+                                <form id="form1" role="form" class="form-horizontal">
                                     <div class="form-group col-lg-7">
                                         <label for="drug_name">Nazwa leku<a style="color:red">*</a>:</label>
                                         <input type="text" class="form-control" name="drug_name">
@@ -66,7 +66,7 @@
                                         <label for="comment">Dodatkowe informacje:</label>
                                         <textarea class="form-control col-lg-4" id="comment"></textarea>
                                     </div>
-                                    <div class="form-group col-lg-12 text-left" >
+                                    <div class="form-group col-lg-12 text-left">
                                         <label>W które dni tygodnia:</label>
                                         <div class="radio">
                                             <label><input type="radio" value=1 name="freq">Codziennie</label>
@@ -112,7 +112,7 @@
                                     <script type="text/javascript">
                                         $('.conditional').conditionize();
                                     </script>
-                                    <button type="submit" class="btn btn-default col-lg-5" onclick="add()">Dodaj</button>
+                                    <button id="submit" type="submit" class="btn btn-default col-lg-5" onclick="add()">Dodaj</button>
                                 </form>
                                 <div class="row col-lg-10"><br /></div>
                             </div>
