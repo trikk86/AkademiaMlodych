@@ -39,6 +39,9 @@
                                 <br />
                                 <form id="form1" role="form" class="form-horizontal">
                                     <div class="form-group col-lg-7">
+                                        <input type="text" class="form-control" name="id" value="">
+                                    </div>
+                                    <div class="form-group col-lg-7">
                                         <label for="drug_name">Nazwa leku<a style="color:red">*</a>:</label>
                                         <input type="text" class="form-control" name="drug_name">
                                     </div>
@@ -113,6 +116,7 @@
                                         $('.conditional').conditionize();
                                     </script>
                                     <button id="submit" type="submit" class="btn btn-default col-lg-5" onclick="add()">Dodaj</button>
+                                    <button id="save" type="submit" class="btn btn-default col-lg-5" onclick="saveDose()">Zapisz</button>
                                 </form>
                                 <div class="row col-lg-10"><br /></div>
                             </div>

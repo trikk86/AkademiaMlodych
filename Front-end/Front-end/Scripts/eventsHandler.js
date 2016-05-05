@@ -1,5 +1,7 @@
 ﻿var doses = []
 
+var counter = 0;
+
 var days_of_week = [
     "Poniedziałek",
     "Wtorek",
@@ -44,8 +46,8 @@ function load_doses() {
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
                     '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1);">Usuń</button>' +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + i + ')">Edytuj</button>' +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + i + ')">Duplikuj</button>' +
+                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')">Edytuj</button>' +
+                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')">Duplikuj</button>' +
                 '</div>' +
             '</a>'
          );
@@ -54,6 +56,7 @@ function load_doses() {
 
 $(window).load(function () {
     load_doses();
+    $("#save").hide();
 });
 
 
@@ -75,6 +78,7 @@ function add() {
     }
 
     var newDose = {
+        id: counter,
         drug_name: form.drug_name.value,
         dose: form.dose.value,
         what_time: form.what_time.value,
@@ -95,6 +99,8 @@ function add() {
         ]
     }
 
+    counter++;
+
     var alreadyOn = false;
 
     for(var i = 0; i < doses.length; i++) {
@@ -114,11 +120,18 @@ function add() {
     form.reset();
 }
 
-function duplicate(i) {
+function duplicate(id) {
     $(document).ready();
+
+    var i = 0;
+
+    while (doses[i].id != id) {
+        i++;
+    }
 
     var dose = doses[i];
     
+    document.forms[0].id.value = dose.id;
     document.forms[0].drug_name.value = dose.drug_name;
     document.forms[0].dose.value = dose.dose;
     document.forms[0].what_time.value = dose.what_time;
@@ -155,11 +168,18 @@ function duplicate(i) {
     document.forms[0].freq_opt7.checked = dose.freq_opts[6];
 }
 
-function edit(i) {
+function edit(id) {
     $(document).ready();
+
+    var i = 0;
+
+    while (doses[i].id != id) {
+        i++;
+    }
 
     var dose = doses[i];
 
+    document.forms[0].id.value = dose.id;
     document.forms[0].drug_name.value = dose.drug_name;
     document.forms[0].dose.value = dose.dose;
     document.forms[0].what_time.value = dose.what_time;
@@ -196,20 +216,17 @@ function edit(i) {
     document.forms[0].freq_opt7.checked = dose.freq_opts[6];
 
     $("#submit").hide();
-    
-    $("#form1").prepend(
-        '<button id="submit" type="submit" class="btn btn-default col-lg-5" onclick="update(' + i + ')">Zapisz</button>'
-    );
+    $("#save").show();
 }
 
-function update(i) {
+function saveDose() {
 
     event.preventDefault();
 
     var form = document.forms[0];
 
     var freq1 = document.getElementsByName("freq");
-    
+
     var cos;
 
     for (var i = 0; i < freq1.length; i++) {
@@ -218,7 +235,14 @@ function update(i) {
         }
     }
 
-    doses[i] = {
+    var i = 0;
+
+    while(doses[i].id != form.id.value) {
+        i++;
+    }
+
+    var newDose = {
+        id: form.id.value,
         drug_name: form.drug_name.value,
         dose: form.dose.value,
         what_time: form.what_time.value,
@@ -237,13 +261,29 @@ function update(i) {
             form.freq_opt6.checked,
             form.freq_opt7.checked,
         ]
-   }
+    }
 
-   $('#form').modal('hide');
+    doses.splice(i, 1);
 
-   form.reset();
+    var alreadyOn = false;
 
-   $("#submit").show();
+    for (var i = 0; i < doses.length; i++) {
+        if (JSON.stringify(newDose) === JSON.stringify(doses[i])) {
+            alreadyOn = true;
+        }
+    }
+
+    if (!alreadyOn) {
+        doses.push(newDose);
+
+        load_doses();
+    }
+    
+    $('#save').hide();
+    $('#submit').show();
+    $('#form').modal('hide');
+
+    form.reset();
 }
 
 
