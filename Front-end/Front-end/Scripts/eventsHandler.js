@@ -57,6 +57,7 @@ function load_doses() {
 $(window).load(function () {
     load_doses();
     $("#save").hide();
+    loadCalendar();
 });
 
 
@@ -284,6 +285,81 @@ function saveDose() {
     $('#form').modal('hide');
 
     form.reset();
+}
+
+function loadCalendar() {
+    var today = new Date();
+    
+
+    
+
+    for (var i = 14; i > 7; i--) {
+        var date = new Date();
+
+        date.setDate(date.getDate() + i);
+
+        var newdate = new Date(date);
+
+        var dd = newdate.getDate();
+        var mm = newdate.getMonth() + 1; //January is 0!
+        var yyyy = newdate.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '/' + mm + '/' + yyyy;
+
+        $("#calendar").prepend(
+            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
+            '<div  class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
+            '<p>' + today + '</p>' +
+            '<div id="cal' + i + '" class="collapse">' +
+            'Leki tego dnia' +
+            '</div>' +
+            '</div>' +
+            '</a>'
+        )
+    }
+
+    for (var i = 0; i < 7; i++) {
+        var date = new Date();
+
+        date.setDate(date.getDate() - i);
+
+        var newdate = new Date(date);
+
+        var dd = newdate.getDate();
+        var mm = newdate.getMonth() + 1; //January is 0!
+        var yyyy = newdate.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '/' + mm + '/' + yyyy;
+
+        $("#calendar").prepend(
+            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
+            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
+            '<p>' + today + '</p>' +
+            '<div id="cal' + i + '" class="collapse">' +
+            'Leki tego dnia' +
+            '</div>' +
+            '</div>' +
+            '</a>'
+        )
+    }
 }
 
 
