@@ -12,6 +12,10 @@ var days_of_week = [
     "Niedziela"
 ]
 
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
+
 function load_doses() {
     $("#list").empty();
 
@@ -318,16 +322,7 @@ function loadCalendar() {
 
         today = dd + '/' + mm + '/' + yyyy;
 
-        $("#calendar").prepend(
-            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
-            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
-            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
-            '<p>' + today + '</p>' +
-            '<div id="cal' + i + '" class="collapse">' +
-            '</div>' +
-            '</div>' +
-            '</a>'
-        )
+        var popover = "";
 
         for (var j = 0; j < doses.length; j++) {
             var dose = doses[j];
@@ -341,10 +336,8 @@ function loadCalendar() {
 
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
-                        $('#cal' + i).prepend(
-                                '<p>' + dose.drug_name + '</p>' +
-                                '<p>' + + '</p>'
-                            );
+                        popover += '<p>' + dose.drug_name + '</p>' + '<p>' + dose.what_time + '</p>';
+                        
                         break;
                     }
 
@@ -364,11 +357,17 @@ function loadCalendar() {
             else {
                 if (newdate.getTime() >= startDate.getTime()) {
                     if (dose.freq == 1) {
-                        $('#cal' + i).prepend('<p>' + dose.drug_name + '</p>');
+                        popover += ' ' + dose.drug_name + ' ' + ' ' + dose.what_time + ' ';
                     }
                 }
             }
         }
+
+        $("#calendar").prepend(
+            '<a class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' +
+            '</a>'
+        )
 
         i -= 7;
     }
@@ -396,16 +395,7 @@ function loadCalendar() {
 
         today = dd + '/' + mm + '/' + yyyy;
 
-        $("#calendar").prepend(
-            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
-            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
-            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
-            '<p>' + today + '</p>' +
-            '<div id="cal' + i + '" class="collapse">' +
-            '</div>' +
-            '</div>' +
-            '</a>'
-        )
+        var popover = "";
 
         for (var j = 0; j < doses.length; j++) {
             var dose = doses[j];
@@ -415,14 +405,12 @@ function loadCalendar() {
             if (dose.end_day != "") {
                 var endDate = new Date(dose.end_day);
 
-                
+
 
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
-                        $('#cal' + i).prepend(
-                                '<p>' + dose.drug_name + '</p>' +
-                                '<p>' +  + '</p>'
-                            );
+                        popover += dose.what_time + ' ' + dose.drug_name;
+
                         break;
                     }
 
@@ -436,18 +424,26 @@ function loadCalendar() {
 
                     alert(diffDays);
 
-                    
+
                 }
             }
             else {
                 if (newdate.getTime() >= startDate.getTime()) {
                     if (dose.freq == 1) {
-                        $('#cal' + i).prepend('<p>' + dose.drug_name + '</p>');
+                        popover += dose.what_time + ' ' + dose.drug_name;
                     }
                 }
             }
         }
+
+        $("#calendar").prepend(
+            '<a class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' + 
+            '</a>'
+        )
     }
+
+    $('.popover-btn').popover();
 }
 
 
