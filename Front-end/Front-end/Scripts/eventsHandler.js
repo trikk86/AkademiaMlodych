@@ -12,10 +12,6 @@ var days_of_week = [
     "Niedziela"
 ]
 
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
-
 function load_doses() {
     $("#list").empty();
 
@@ -49,13 +45,15 @@ function load_doses() {
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
-                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1);">Usuń</button>' +
+                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); loadCalendar();">Usuń</button>' +
                     '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')">Edytuj</button>' +
                     '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')">Duplikuj</button>' +
                 '</div>' +
             '</a>'
          );
     }
+
+    loadCalendar();
 }
 
 $(window).load(function () {
@@ -288,6 +286,168 @@ function saveDose() {
     $('#form').modal('hide');
 
     form.reset();
+}
+
+function loadCalendar() {
+    $("#calendar").empty();
+
+    var today = new Date();
+
+    for (var i = 7; i > 0; i--) {
+        
+
+        var date = new Date();
+
+        date.setDate(date.getDate() + i);
+
+        i += 7;
+
+        var newdate = new Date(date);
+
+        var dd = newdate.getDate();
+        var mm = newdate.getMonth() + 1; //January is 0!
+        var yyyy = newdate.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '/' + mm + '/' + yyyy;
+
+        $("#calendar").prepend(
+            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
+            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
+            '<p>' + today + '</p>' +
+            '<div id="cal' + i + '" class="collapse">' +
+            '</div>' +
+            '</div>' +
+            '</a>'
+        )
+
+        for (var j = 0; j < doses.length; j++) {
+            var dose = doses[j];
+
+            var startDate = new Date(dose.start_day);
+
+            if (dose.end_day != "") {
+                var endDate = new Date(dose.end_day);
+
+
+
+                if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
+                    if (dose.freq == 1) {
+                        $('#cal' + i).prepend(
+                                '<p>' + dose.drug_name + '</p>' +
+                                '<p>' + + '</p>'
+                            );
+                        break;
+                    }
+
+                    var diffTime = newdate.getTime() - startDate.getTime();
+
+                    var diffDate = new Date();
+
+                    diffDate.setTime(diffTime);
+
+                    var diffDays = diffDate.getDate();
+
+                    alert(diffDays);
+
+
+                }
+            }
+            else {
+                if (newdate.getTime() >= startDate.getTime()) {
+                    if (dose.freq == 1) {
+                        $('#cal' + i).prepend('<p>' + dose.drug_name + '</p>');
+                    }
+                }
+            }
+        }
+
+        i -= 7;
+    }
+
+    for (var i = 0; i < 7; i++) {
+        var date = new Date();
+
+        date.setDate(date.getDate() - i);
+
+        date.setHours(0, 0, 0, 0);
+
+        var newdate = new Date(date);
+
+        var dd = newdate.getDate();
+        var mm = newdate.getMonth() + 1; //January is 0!
+        var yyyy = newdate.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '/' + mm + '/' + yyyy;
+
+        $("#calendar").prepend(
+            '<a data-toggle="collapse" href="#cal' + i + '" class="">' +
+            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 list-group-item list-group-item-success" style="">' +
+            days_of_week[(newdate.getDay() + 6) % 7] + '\n' +
+            '<p>' + today + '</p>' +
+            '<div id="cal' + i + '" class="collapse">' +
+            '</div>' +
+            '</div>' +
+            '</a>'
+        )
+
+        for (var j = 0; j < doses.length; j++) {
+            var dose = doses[j];
+
+            var startDate = new Date(dose.start_day);
+
+            if (dose.end_day != "") {
+                var endDate = new Date(dose.end_day);
+
+                
+
+                if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
+                    if (dose.freq == 1) {
+                        $('#cal' + i).prepend(
+                                '<p>' + dose.drug_name + '</p>' +
+                                '<p>' +  + '</p>'
+                            );
+                        break;
+                    }
+
+                    var diffTime = newdate.getTime() - startDate.getTime();
+
+                    var diffDate = new Date();
+
+                    diffDate.setTime(diffTime);
+
+                    var diffDays = diffDate.getDate();
+
+                    alert(diffDays);
+
+                    
+                }
+            }
+            else {
+                if (newdate.getTime() >= startDate.getTime()) {
+                    if (dose.freq == 1) {
+                        $('#cal' + i).prepend('<p>' + dose.drug_name + '</p>');
+                    }
+                }
+            }
+        }
+    }
 }
 
 
