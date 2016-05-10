@@ -364,7 +364,7 @@ function loadCalendar() {
         }
 
         $("#calendar").prepend(
-            '<a class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' +
             '</a>'
         )
@@ -437,7 +437,7 @@ function loadCalendar() {
         }
 
         $("#calendar").prepend(
-            '<a class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' + 
             '</a>'
         )
