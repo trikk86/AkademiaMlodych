@@ -337,7 +337,7 @@ function loadCalendar() {
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
                         popover += '<p>' + dose.drug_name + '</p>' + '<p>' + dose.what_time + '</p>';
-                        
+
                         break;
                     }
 
@@ -349,22 +349,36 @@ function loadCalendar() {
 
                     var diffDays = diffDate.getDate();
 
-                    alert(diffDays);
+                    if (dose.freq == 2 && diffDays % 7 == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
 
+                        break;
+                    }
 
+                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
+
+                        break;
+                    }
+
+                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
+
+                        break;
+                    }
                 }
             }
             else {
                 if (newdate.getTime() >= startDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += ' ' + dose.drug_name + ' ' + ' ' + dose.what_time + ' ';
+                        popover += dose.what_time + ' ' + dose.drug_name;
                     }
                 }
             }
         }
 
         $("#calendar").prepend(
-            '<a data-trigger="focus" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' +
             '</a>'
         )
@@ -409,7 +423,7 @@ function loadCalendar() {
 
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += '<p>' + dose.drug_name + '</p>' + '<p>' + dose.what_time + '</p>';
 
                         break;
                     }
@@ -422,9 +436,23 @@ function loadCalendar() {
 
                     var diffDays = diffDate.getDate();
 
-                    alert(diffDays);
+                    if (dose.freq == 2 && diffDays % 7 == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
 
+                        break;
+                    }
 
+                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
+
+                        break;
+                    }
+
+                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
+                        popover += dose.what_time + ' ' + dose.drug_name;
+
+                        break;
+                    }
                 }
             }
             else {
@@ -437,7 +465,7 @@ function loadCalendar() {
         }
 
         $("#calendar").prepend(
-            '<a data-trigger="focus" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' + 
             '</a>'
         )
