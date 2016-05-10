@@ -1,6 +1,91 @@
-﻿var doses = []
+﻿var doses = [
+    {
+        id: "0",
+        drug_name: "Witamina C",
+        dose: "2 tabletki",
+        what_time: "07:00",
+        how_long: "10",
+        start_day: "03/20/2016",
+        end_day: "",
+        comment: "",
+        freq: "1",
+        freq_opt: "",
+        freq_opts: [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ]
+    },
+    {
+        id: "1",
+        drug_name: "Viagra",
+        dose: "4 pigułki",
+        what_time: "21:00",
+        how_long: "1",
+        start_day: "05/03/2016",
+        end_day: "05/03/2017",
+        comment: "",
+        freq: "2",
+        freq_opt: "",
+        freq_opts: [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ]
+    },
+    {
+        id: "2",
+        drug_name: "Acodin",
+        dose: "wszystkie",
+        what_time: "19:00",
+        how_long: "1",
+        start_day: "05/03/2016",
+        end_day: "05/03/2017",
+        comment: "",
+        freq: "3",
+        freq_opt: "3",
+        freq_opts: [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ]
+    },
+    {
+        id: "3",
+        drug_name: "Tran",
+        dose: "2 łyżeczki",
+        what_time: "07:30",
+        how_long: "10",
+        start_day: "05/03/2016",
+        end_day: "05/03/2017",
+        comment: "",
+        freq: "4",
+        freq_opt: "",
+        freq_opts: [
+            true,
+            false,
+            true,
+            false,
+            true,
+            false,
+            false
+        ]
+    }
+]
 
-var counter = 0;
+var counter = 4;
 
 var days_of_week = [
     "Poniedziałek",
@@ -336,9 +421,8 @@ function loadCalendar() {
 
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += '<p>' + dose.drug_name + '</p>' + '<p>' + dose.what_time + '</p>';
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
 
                     var diffTime = newdate.getTime() - startDate.getTime();
@@ -350,35 +434,58 @@ function loadCalendar() {
                     var diffDays = diffDate.getDate();
 
                     if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
 
                     if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
 
                     if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
                 }
             }
             else {
                 if (newdate.getTime() >= startDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+
+                    }
+
+                    var diffTime = newdate.getTime() - startDate.getTime();
+
+                    var diffDate = new Date();
+
+                    diffDate.setTime(diffTime);
+
+                    var diffDays = diffDate.getDate();
+
+                    if (dose.freq == 2 && diffDays % 7 == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+                    }
+
+                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+
+                    }
+
+                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
                     }
                 }
             }
         }
 
         $("#calendar").prepend(
-            '<a data-trigger="focus" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" data-html="true" href="javascript://" data-placement="bottom" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' +
             '</a>'
         )
@@ -423,9 +530,9 @@ function loadCalendar() {
 
                 if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += '<p>' + dose.drug_name + '</p>' + '<p>' + dose.what_time + '</p>';
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
+
                     }
 
                     var diffTime = newdate.getTime() - startDate.getTime();
@@ -437,35 +544,65 @@ function loadCalendar() {
                     var diffDays = diffDate.getDate();
 
                     if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
 
                     if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
+
                     }
 
                     if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-                        break;
                     }
                 }
             }
             else {
                 if (newdate.getTime() >= startDate.getTime()) {
                     if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name;
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+
+                    }
+
+                    var diffTime = newdate.getTime() - startDate.getTime();
+
+                    var diffDate = new Date();
+
+                    diffDate.setTime(diffTime);
+
+                    var diffDays = diffDate.getDate();
+
+                    if (dose.freq == 2 && diffDays % 7 == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+                    }
+
+                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
+
+                    }
+
+                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
+                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
+
                     }
                 }
             }
         }
 
+        var ifactive = "";
+
+        if (i == 0) {
+            ifactive = "active";
+        }
+
         $("#calendar").prepend(
-            '<a data-trigger="focus" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
+            '<a data-trigger="focus" data-html="true" href="javascript://" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn ' + ifactive + '" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
             days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' + 
             '</a>'
         )
