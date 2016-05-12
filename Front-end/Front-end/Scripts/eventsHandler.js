@@ -87,6 +87,20 @@
 
 var counter = 4;
 
+var userID = 0;
+
+function getDoses() {
+    return doses;
+}
+
+function addDose(newdose) {
+    JSON.stringify(newdose);
+
+    ifSuccess = true;
+
+    return ifSuccess;
+}
+
 var days_of_week = [
     "Poniedziałek",
     "Wtorek",
@@ -134,9 +148,9 @@ function load_doses() {
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
-                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); loadCalendar();">Usuń</button>' +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')">Edytuj</button>' +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')">Duplikuj</button>' +
+                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); loadCalendar();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
+                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button>' + " " +
+                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button>' + " " +
                 '</div>' +
             '</a>'
          );
@@ -146,6 +160,9 @@ function load_doses() {
 }
 
 $(window).load(function () {
+    doses = getDoses();
+    $('.alert').hide();
+
     load_doses();
     $("#save").hide();
 });
@@ -190,7 +207,10 @@ function add() {
         ]
     }
 
-    counter++;
+    if (newDose.drug_name == "" || newDose.dose == "" || newDose.what_time == "" || newDose.how_long == "" || newDose.start_day == "" || (newDose.freq == 3 && newDose.freq_opts == "") || (newDose.freq == 4 && (!newDose.freq_opts[0] && !newDose.freq_opts[1] && !newDose.freq_opts[2] && !newDose.freq_opts[3] && !newDose.freq_opts[4] && !newDose.freq_opts[5] && !newDose.freq_opts[6]))) {
+        $('.alert').show();
+        return;
+    }
 
     var alreadyOn = false;
 
@@ -201,14 +221,21 @@ function add() {
     }
 
     if (!alreadyOn) {
-        doses.push(newDose);
+        if (addDose(newDose)) {
+            doses.push(newDose);
 
-        load_doses();
+            load_doses();
+        }
+        else {
+            alert("Błąd!");
+        }
     }
 
     $('#form').modal('hide');
 
+    $('.alert').hide();
     form.reset();
+    document.getElementsByName("freq")[0].checked = true;
 }
 
 function duplicate(id) {
@@ -488,6 +515,8 @@ function loadCalendar() {
 
         var nameOfDay = "#day" + (i + 7);
 
+        $(nameOfDay).empty();
+
         $(nameOfDay).attr('data-content', popover);
         $(nameOfDay).append(days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>');
 
@@ -603,6 +632,8 @@ function loadCalendar() {
         }
 
         var nameOfDay = "#day" + (7 - i);
+
+        $(nameOfDay).empty();
 
         $(nameOfDay).attr('data-content', popover);
         $(nameOfDay).addClass(ifactive);
