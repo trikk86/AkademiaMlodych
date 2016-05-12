@@ -378,7 +378,7 @@ function saveDose() {
 }
 
 function loadCalendar() {
-    $("#calendar").empty();
+
 
     var today = new Date();
 
@@ -484,13 +484,14 @@ function loadCalendar() {
             }
         }
 
-        $("#calendar").prepend(
-            '<a data-trigger="focus" data-html="true" href="javascript://" data-placement="bottom" class="list-group-item col-lg-3 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
-            days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' +
-            '</a>'
-        )
-
         i -= 7;
+
+        var nameOfDay = "#day" + (i + 7);
+
+        $(nameOfDay).attr('data-content', popover);
+        $(nameOfDay).append(days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>');
+
+        
     }
 
     for (var i = 0; i < 7; i++) {
@@ -601,11 +602,11 @@ function loadCalendar() {
             ifactive = "active";
         }
 
-        $("#calendar").prepend(
-            '<a data-trigger="focus" data-html="true" href="javascript://" data-placement="bottom" href="#" class="list-group-item col-lg-3 list-group-item-success popover-btn ' + ifactive + '" data-container="body" data-toggle="popover" data-content="' + popover + '" title="Leki"><p>' +
-            days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>' + 
-            '</a>'
-        )
+        var nameOfDay = "#day" + (7 - i);
+
+        $(nameOfDay).attr('data-content', popover);
+        $(nameOfDay).addClass(ifactive);
+        $(nameOfDay).append(days_of_week[(newdate.getDay() + 6) % 7] + '</p>' + '<p>' + today + '</p>');
     }
 
     $('.popover-btn').popover();
