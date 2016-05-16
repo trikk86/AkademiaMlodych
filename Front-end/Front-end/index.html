@@ -11,17 +11,24 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/conditionize.jquery.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
-    
+
 </head>
 <body>
+    <div class="row text-center">
+        <div class="list-group-item-info list-group-item" style="vertical-align:top; float:right" id="infobox">
+            
+        </div>
+        <div class="page-header text-center">
 
-    <div class="page-header text-center">
-        <h1 class="">Aplikacja przypominająca o lekach</h1>
-        
+            <h1 class="">Aplikacja przypominająca o lekach</h1>
+
+        </div>
     </div>
+    
     <div class="container">
-        <div class="row"><button style="float: right;" type="button" onclick="location.href='login.html';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button></div>
+        <div class="row"></div>
         <div class="row">
+
             <div class="col-lg-8 col-md-8 col-sm-8 text-center">
                 <h2>Kalendarz</h2>
                 <div id="calendar" style="background-color:antiquewhite">
@@ -47,9 +54,10 @@
 
                 <button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary">Dodaj lek</button>
             </div>
+
         </div>
     </div>
-    
+
     <div id="form" name="form" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,7 +147,7 @@
                                 </div>
                             </div>
                             <script type="text/javascript">
-                                            $('.conditional').conditionize();
+                                $('.conditional').conditionize();
                             </script>
                             <button id="submit" type="submit" class="btn btn-default col-lg-5" onclick="add()">Dodaj</button>
                             <button id="save" type="submit" class="btn btn-default col-lg-5" onclick="saveDose()">Zapisz</button>
@@ -152,21 +160,21 @@
         </div>
     </div>
 
-    <br/>
+    <br />
 
     <div class="panel-footer text-center">
         <p>Akademia Młodych KMD 2016</p>
     </div>
-    
+
     <script src="Scripts/datepicker.min.js"></script>
-    
+
     <script src="Scripts/moment.js"></script>
     <script src="Scripts/bootstrap-datepicker-mobile.js"></script>
     <script src="Scripts/eventsHandler.js"></script>
     <script>
-$(document).ready(function(){
-    $('.popover-btn').popover();
-});
+        $(document).ready(function () {
+            $('.popover-btn').popover();
+        });
     </script>
 </body>
 </html>

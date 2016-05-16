@@ -85,6 +85,11 @@
     }
 ]
 
+var user = {
+    ID: "0",
+    username: "vangradt",
+}
+
 var counter = 4;
 
 var userID = 0;
@@ -152,9 +157,9 @@ function load_doses() {
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
-                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); load_doses();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
                     '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button>' + " " +
                     '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button>' + " " +
+                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); load_doses();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
                 '</div>' +
             '</a>'
          );
@@ -164,6 +169,8 @@ function load_doses() {
 }
 
 $(window).load(function () {
+    $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.username + '.</p>');
+
     doses = getDoses();
     $('.alert').hide();
 
