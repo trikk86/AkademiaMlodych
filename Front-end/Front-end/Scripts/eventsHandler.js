@@ -90,6 +90,8 @@ var counter = 4;
 var userID = 0;
 
 function getDoses() {
+    //TODO
+
     return doses;
 }
 
@@ -97,6 +99,8 @@ function addDose(newdose) {
     JSON.stringify(newdose);
 
     ifSuccess = true;
+
+    //TODO
 
     return ifSuccess;
 }
@@ -223,6 +227,8 @@ function add() {
     if (!alreadyOn) {
         if (addDose(newDose)) {
             doses.push(newDose);
+
+            counter++;
 
             load_doses();
         }

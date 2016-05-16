@@ -16,3 +16,16 @@
     });
 
 });
+
+function login() {
+    //TODO
+
+    location.href = 'index.html';
+};
+
+function register() {
+    //TODO
+
+    location.href = 'index.html';
+};
+
