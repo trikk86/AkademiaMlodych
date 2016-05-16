@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <link href="Content/datepicker.min.css" rel="stylesheet" />
+    <link href="Content/StyleSheet.css" rel="stylesheet" />
     <script src="Scripts/jquery-2.2.3.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/conditionize.jquery.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
     
 </head>
-<body >
+<body>
 
     <div class="page-header text-center">
         <h1 class="">Aplikacja przypominająca o lekach</h1>
         
     </div>
     <div class="container">
-        <button style="float: right;" type="button" onclick="location.href='login.html';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button>
+        <div class="row"><button style="float: right;" type="button" onclick="location.href='login.html';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button></div>
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-8 text-center" style="">
+            <div class="col-lg-8 col-md-8 col-sm-8 text-center">
                 <h2>Kalendarz</h2>
                 <div id="calendar" style="background-color:antiquewhite">
                     <a data-trigger="focus" id="day1" data-html="true" href="javascript://" data-placement="bottom" class="list-group-item col-lg-3 col-md-3 col-md-3 col-sm-4 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="" title="Leki"></a>
@@ -40,7 +41,7 @@
                     <a data-trigger="focus" id="day14" data-html="true" href="javascript://" data-placement="bottom" class="list-group-item col-lg-3 col-md-3 col-md-3 col-sm-4 list-group-item-success popover-btn" data-container="body" data-toggle="popover" data-content="" title="Leki"></a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 text-center"; border-radius:10px">
+            <div class="col-lg-4 col-md-4 col-sm-4 text-center">
                 <h2>Lista leków</h2>
                 <div id="list" class="list-group col-lg-offset-2 col-lg-8 text-center col-lg-offset-2 col-md-offset-1 col-md-10 col-md-offset-1 col-sm-offset-1 col-sm-10 col-sm-offset-1"></div>
 
@@ -149,6 +150,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <br/>
+
+    <div class="panel-footer text-center">
+        <p>Akademia Młodych KMD 2016</p>
     </div>
     
     <script src="Scripts/datepicker.min.js"></script>

@@ -142,7 +142,7 @@ function load_doses() {
         }
 
         $("#list").prepend(
-    '<a data-toggle="collapse" href="#detail' + i + '" class="list-group-item list-group-item-success" id="' + i + '">' +
+    '<a data-toggle="collapse" href="#detail' + i + '" class="list-group-item" id="' + i + '">' +
                 '<h4>' + doses[i].drug_name + '</h4>' +
                 '<div id="detail' + i + '" class="collapse">' +
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
@@ -628,7 +628,7 @@ function loadCalendar() {
         var ifactive = "";
 
         if (i == 0) {
-            ifactive = "active";
+            ifactive = "today";
         }
 
         var nameOfDay = "#day" + (7 - i);
