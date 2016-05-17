@@ -125,6 +125,30 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+function compareDoses(dose1, dose2) {
+    if(dose1.drug_name == dose2.drug_name &&
+        dose1.dose == dose2.dose &&
+        dose1.what_time == dose2.what_time &&
+        dose1.how_long == dose2.how_long &&
+        dose1.start_day == dose2.start_day &&
+        dose1.end_day == dose2.end_day &&
+        dose1.comment == dose2.comment &&
+        dose1.freq == dose2.freq &&
+        dose1.freq_opt == dose2.freq_opt &&
+        dose1.freq_opts[0] == dose2.freq_opts[0] &&
+        dose1.freq_opts[1] == dose2.freq_opts[1] &&
+        dose1.freq_opts[2] == dose2.freq_opts[2] &&
+        dose1.freq_opts[3] == dose2.freq_opts[3] &&
+        dose1.freq_opts[4] == dose2.freq_opts[4] &&
+        dose1.freq_opts[5] == dose2.freq_opts[5] &&
+        dose1.freq_opts[6] == dose2.freq_opts[6]
+        ) {
+        return true;
+    };
+
+    return false;
+}
+
 function load_doses() {
     $("#list").empty();
 
@@ -227,7 +251,7 @@ function add() {
     var alreadyOn = false;
 
     for(var i = 0; i < doses.length; i++) {
-        if (JSON.stringify(newDose) === JSON.stringify(doses[i])) {
+        if (compareDoses(newDose, doses[i])) {
             alreadyOn = true;
         }
     }
