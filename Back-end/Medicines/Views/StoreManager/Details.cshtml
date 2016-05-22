@@ -1,0 +1,40 @@
+﻿@model Medicines.Models.Medicine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Medicine</legend>
+
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Name)
+    </div>
+
+    <div class="display-label">Doctor</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Name)
+    </div>
+
+    <div class="display-label">Medicine_Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Medicine_Name)
+    </div>
+
+    <div class="display-label">Dose</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Dose)
+    </div>
+
+    <div class="display-label">MedicineArtUrl</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MedicineArtUrl)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MedicineId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

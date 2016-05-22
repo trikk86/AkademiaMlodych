@@ -1,0 +1,14 @@
+﻿@model Medicines.Models.User
+
+@{
+    ViewBag.Title = "Browse";
+}
+<h2>Browsing Pacjent: @Model.Name</h2>
+<ul>
+    @foreach (var medicine in Model.Medicines)
+    {
+        <li>
+            @Html.ActionLink(medicine.Medicine_Name+" (Ilość dawek: "+medicine.Dose+")", "Details", new { id = medicine.MedicineId })
+        </li>
+    }
+</ul>

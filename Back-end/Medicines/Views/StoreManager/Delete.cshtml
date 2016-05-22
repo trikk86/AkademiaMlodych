@@ -1,0 +1,43 @@
+﻿@model Medicines.Models.Medicine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Medicine</legend>
+
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.Name)
+    </div>
+
+    <div class="display-label">Doctor</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Name)
+    </div>
+
+    <div class="display-label">Medicine_Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Medicine_Name)
+    </div>
+
+    <div class="display-label">Dose</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Dose)
+    </div>
+
+    <div class="display-label">MedicineArtUrl</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MedicineArtUrl)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

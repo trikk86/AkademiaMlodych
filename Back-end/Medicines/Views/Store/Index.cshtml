@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Medicines.Models.User>
+
+
+@{
+    ViewBag.Title = "Store";
+}
+<h3>Browse Users</h3>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+<p>
+    Select from @Model.Count()
+users:</p>
+
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@Html.ActionLink(user.Name, "Browse", new { user = user.Name })</li>
+    }
+</ul>
+
