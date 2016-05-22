@@ -122,7 +122,32 @@ var days_of_week = [
 
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
+    $('[data-toggle="tooltip"]').tooltip();
 });
+
+function compareDoses(dose1, dose2) {
+    if(dose1.drug_name == dose2.drug_name &&
+        dose1.dose == dose2.dose &&
+        dose1.what_time == dose2.what_time &&
+        dose1.how_long == dose2.how_long &&
+        dose1.start_day == dose2.start_day &&
+        dose1.end_day == dose2.end_day &&
+        dose1.comment == dose2.comment &&
+        dose1.freq == dose2.freq &&
+        dose1.freq_opt == dose2.freq_opt &&
+        dose1.freq_opts[0] == dose2.freq_opts[0] &&
+        dose1.freq_opts[1] == dose2.freq_opts[1] &&
+        dose1.freq_opts[2] == dose2.freq_opts[2] &&
+        dose1.freq_opts[3] == dose2.freq_opts[3] &&
+        dose1.freq_opts[4] == dose2.freq_opts[4] &&
+        dose1.freq_opts[5] == dose2.freq_opts[5] &&
+        dose1.freq_opts[6] == dose2.freq_opts[6]
+        ) {
+        return true;
+    };
+
+    return false;
+}
 
 function load_doses() {
     $("#list").empty();
@@ -157,9 +182,9 @@ function load_doses() {
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button>' + " " +
-                    '<button data-toggle="modal" data-target="#form" type="button" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button>' + " " +
-                    '<button type="button" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); load_doses();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
+                    '<span data-toggle="modal" data-target="#form"><button data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Edytuj" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button></span>' + " " +
+                    '<span  data-toggle="modal" data-target="#form"><button type="button" data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Duplikuj" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button></span>' + " " +
+                    '<button type="button" data-toggle="tooltip" data-placement="bottom" title="Usuń" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); load_doses();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
                 '</div>' +
             '</a>'
          );
@@ -169,7 +194,7 @@ function load_doses() {
 }
 
 $(window).load(function () {
-    $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.username + '.</p>');
+    $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.username + '</p>');
 
     doses = getDoses();
     $('.alert').hide();
@@ -226,7 +251,7 @@ function add() {
     var alreadyOn = false;
 
     for(var i = 0; i < doses.length; i++) {
-        if (JSON.stringify(newDose) === JSON.stringify(doses[i])) {
+        if (compareDoses(newDose, doses[i])) {
             alreadyOn = true;
         }
     }
@@ -654,6 +679,7 @@ function loadCalendar() {
     }
 
     $('.popover-btn').popover();
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Leki</title>
+    <title>Apol</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
@@ -18,9 +18,9 @@
         <div class="list-group-item-info list-group-item" style="vertical-align:top; float:right" id="infobox">
             
         </div>
-        <div class="page-header text-center">
+        <div class="page-header">
 
-            <h1 class="">Aplikacja przypominająca o lekach</h1>
+            <h1>Apol</h1>
 
         </div>
     </div>
@@ -53,7 +53,7 @@
                 <div class="row"><div id="list" class="list-group col-lg-offset-2 col-lg-8 text-center col-lg-offset-2 col-md-offset-1 col-md-10 col-md-offset-1 col-sm-offset-1 col-sm-10 col-sm-offset-1"></div></div>
 
                 <div class="row">
-                    <button data-toggle="modal" data-target="#form" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+                    <span data-toggle="modal" data-target="#form"><button data-placement="bottom" data-toggle="tooltip" title="Dodaj lek" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button></span>
                 </div>
 
         </div>
@@ -175,6 +175,9 @@
     <script>
         $(document).ready(function () {
             $('.popover-btn').popover();
+        });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 </body>
