@@ -7,13 +7,9 @@ namespace Service.Models
 {
     public class Dose
     {
-        public int MedicineID { get; set; }
-        public int UserID { get; set; }
+        //to jest klasa pomocnicza - pojedyncze wystąpienie leku, nie ma info o leku bo wszystkie są w "klasie matce" - Med
 
-        public string Medicine_Name { get; set; }
-        public string Additional_Information { get; set; }
-
-        public virtual User User { get; set; }
-        public List<Med> Doses { get; set; }
+        public DateTime date { get; set; }
+        public bool ifTaken { get; set; }
     }
 }
