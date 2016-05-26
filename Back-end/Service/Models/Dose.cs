@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace Service.Models
 {
-    class Dose
+    public class Dose
     {
-        public int doseId { get; set; }
-        public int userId { get; set; }
+        public int DoseId { get; set; }
+        public DateTime Beginning_Date { get; set; }
+        public DateTime The_End_Time { get; set; }
+        public int Tolerance_Hour { get; set; }
 
-        public string drug_name { get; set; }
-        public string dose { get; set; }
-        public string what_time { get; set; }
-        public string how_long { get; set; }
-        public string start_day { get; set; }
-        public string end_day { get; set; }
-        public string comment { get; set; }
-        public int freq { get; set; }
-        public int[] freq_opts { get; set; }
+        //public DateTimeOffset Iteration { get; set; }
+        //public int FrequencyOptionId { get; set; }
+        //public int FrequencyOptionValue { get; set; }
+
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thurday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
     }
 }
