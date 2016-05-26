@@ -17,7 +17,7 @@ namespace Service.Models
         public string Email { get; set; }
         public DateTime Date_of_Birth { get; set; }
 
-        public List<Medicine> Medicines { get; set; }
+        public List<Dose> Medicines { get; set; }
     }
 
 }
