@@ -11,5 +11,8 @@ namespace Service.Models
 
         public DateTime date { get; set; }
         public bool ifTaken { get; set; }
+
+        public int parentId { get; set; }
+        public virtual Med parent { get; set; }
     }
 }
