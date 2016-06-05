@@ -5,7 +5,7 @@ using System;
 
 namespace Service.Controllers
 {
-    public class UserController : apiController
+    public class UsersController : ApiController
     {
         private MedicinesStoreEntities db = new MedicinesStoreEntities();
 

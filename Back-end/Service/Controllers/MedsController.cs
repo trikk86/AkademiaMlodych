@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Http;
+using Service.Controllers;
 
 namespace Service.Controllers
 {
-    public class MedsController : apiController
+    public class MedsController : ApiController
     {
         private MedicinesStoreEntities db = new MedicinesStoreEntities();
 

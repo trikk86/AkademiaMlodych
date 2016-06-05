@@ -83,3 +83,6 @@ C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Back-end\Service\obj\Debug\Servi
 C:\Users\Damian\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.csprojResolveAssemblyReference.cache
 C:\Users\Damian\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.dll
 C:\Users\Damian\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.pdb
+C:\Users\amvan\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.csprojResolveAssemblyReference.cache
+C:\Users\amvan\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.dll
+C:\Users\amvan\Source\Repos\AkademiaMlodych\Back-end\Service\obj\Debug\Service.pdb
