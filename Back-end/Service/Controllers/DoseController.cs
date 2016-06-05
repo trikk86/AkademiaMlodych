@@ -12,9 +12,9 @@ namespace Service.Controllers
     {
         //BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA 
 
-        List<Dose> doses = new List<Dose>
+        List<Med> doses = new List<Med>
         {
-            new Dose()
+            new Med()
             {
                 doseId = 1,
                 userId = 1,
@@ -34,7 +34,7 @@ namespace Service.Controllers
         // GET: api/Dose/5
         public string Get(int id)
         {
-            List<Dose> userDoses = doses.FindAll(dose => dose.userId == id);
+            List<Med> userDoses = doses.FindAll(dose => dose.userId == id);
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(userDoses);
         }

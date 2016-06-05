@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Medicines_Table">
+    <Key>
+      <PropertyRef Name="ID_leku" />
+    </Key>
+    <Property Name="ID_leku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int32" />
+    <Property Name="Medicine_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Additional_Information" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Beginning_Date" Type="DateTime" Precision="3" />
+    <Property Name="The_End_Date" Type="DateTime" Precision="3" />
+    <Property Name="Tolerance_Hour" Type="Byte" />
+    <Property Name="Iteration" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Users_Table" Relationship="Self.FK_Medicines_Table_Users_Table" FromRole="Medicines_Table" ToRole="Users_Table" />
+  </EntityType>
+  <EntityType Name="Users_Table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="E_Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date_of_Birth" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Medicines_Table" Relationship="Self.FK_Medicines_Table_Users_Table" FromRole="Users_Table" ToRole="Medicines_Table" />
+  </EntityType>
+  <Association Name="FK_Medicines_Table_Users_Table">
+    <End Role="Users_Table" Type="Self.Users_Table" Multiplicity="0..1" />
+    <End Role="Medicines_Table" Type="Self.Medicines_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Table">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Medicines_Table">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Medicines_Table" EntityType="Self.Medicines_Table" />
+    <EntitySet Name="Users_Table" EntityType="Self.Users_Table" />
+    <AssociationSet Name="FK_Medicines_Table_Users_Table" Association="Self.FK_Medicines_Table_Users_Table">
+      <End Role="Users_Table" EntitySet="Users_Table" />
+      <End Role="Medicines_Table" EntitySet="Medicines_Table" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

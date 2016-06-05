@@ -7,21 +7,12 @@ namespace Service.Models
 {
     public class Dose
     {
-        public int DoseId { get; set; }
-        public DateTime Beginning_Date { get; set; }
-        public DateTime The_End_Time { get; set; }
-        public int Tolerance_Hour { get; set; }
+        //to jest klasa pomocnicza - pojedyncze wystąpienie leku, nie ma info o leku bo wszystkie są w "klasie matce" - Med
 
-        //public DateTimeOffset Iteration { get; set; }
-        //public int FrequencyOptionId { get; set; }
-        //public int FrequencyOptionValue { get; set; }
+        public DateTime date { get; set; }
+        public bool ifTaken { get; set; }
 
-        public bool Monday { get; set; }
-        public bool Tuesday { get; set; }
-        public bool Wednesday { get; set; }
-        public bool Thurday { get; set; }
-        public bool Friday { get; set; }
-        public bool Saturday { get; set; }
-        public bool Sunday { get; set; }
+        public int parentId { get; set; }
+        public virtual Med parent { get; set; }
     }
 }
