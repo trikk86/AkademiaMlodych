@@ -1,5 +1,0 @@
-C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Base\Database\bin\Debug\Database.dacpac
-C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Base\Database\bin\Debug\Database.dll
-C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Base\Database\bin\Debug\Database.pdb
-C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Base\Database\obj\Debug\Database.dll
-C:\Users\amvan\Documents\GitHub\AkademiaMlodych\Base\Database\obj\Debug\Database.pdb
