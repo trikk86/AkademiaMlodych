@@ -10,7 +10,7 @@ namespace Service.Models
     public class Med
     {
         //To jest klasa którą przekazuje się do bazy danych, taką samą dostaje javascript kiedy prosi o listę leków
-
+        
         public int medId { get; set; }
 
         public int userId { get; set; }
@@ -20,8 +20,11 @@ namespace Service.Models
         public string dose { get; set; }
 
         public string comment { get; set; }
+
         public DateTime Beginning_Date { get; set; }
+
         public DateTime The_End_Time { get; set; }
+
         public int Tolerance_Hour { get; set; }
         
         public int FrequencyOptionId { get; set; }
