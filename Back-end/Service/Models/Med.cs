@@ -17,19 +17,19 @@ namespace Service.Models
 
         public string medName { get; set; }
 
-        public string dose { get; set; }
+        public string amount { get; set; }
 
         public string comment { get; set; }
 
-        public DateTime Beginning_Date { get; set; }
+        public DateTime startDate { get; set; }
 
-        public DateTime The_End_Time { get; set; }
+        public DateTime endDate { get; set; }
 
-        public int Tolerance_Hour { get; set; }
+        public int tolerance { get; set; }
         
-        public int FrequencyOptionId { get; set; }
-        public string FrequencyOptionValue { get; set; }
+        public int freqId { get; set; }
+        public string freqValue { get; set; }
 
-        public List<Dose> Doses { get; set; } //ta lista jest pusta kiedy przychodzi z javascriptu, serwis ją wypełnia korzystając z reszty parametrów
+        public List<Dose> doses { get; set; } //ta lista jest pusta kiedy przychodzi z javascriptu, serwis ją wypełnia korzystając z reszty parametrów
     }
 }

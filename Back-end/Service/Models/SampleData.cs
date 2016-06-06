@@ -22,18 +22,18 @@ namespace parents.Models
 
             var medicines = new List<Med>
             {
-                new Med { medName = "Omega3", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "Magnez",comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "Witamina A", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "Witamina B", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "Witamina C", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "Witamina D", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Omega3", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Magnez",comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Witamina A", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Witamina B", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Witamina C", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Witamina D", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
 
-                new Med { medName = "TermlineFast", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "TermlineMen", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
-                new Med { medName = "NieChrap", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "TermlineFast", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "TermlineMen", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "NieChrap", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
 
-                new Med { medName = "Omega3", comment="nic", Beginning_Date=new DateTime(2014, 6, 14, 6, 32, 0), The_End_Time=new DateTime(2014, 6, 14, 6, 32, 0) },
+                new Med { medName = "Omega3", comment="nic", startDate=new DateTime(2014, 6, 14, 6, 32, 0), endDate=new DateTime(2014, 6, 14, 6, 32, 0) },
             };
 
             new List<Dose> 

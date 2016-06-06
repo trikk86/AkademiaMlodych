@@ -21,7 +21,7 @@ namespace Service.Controllers
         // POST: /User/Create
 
         [HttpPost]
-        public bool Create(User user)
+        public bool Create([FromBody]User user)
         {
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -32,7 +32,7 @@ namespace Service.Controllers
         public string Login([FromBody]string mail, string password)
         {
 
-                var v = db.Users.SingleOrDefault(a => a.Email == mail && a.Password == password);
+                var v = db.Users.SingleOrDefault(a => a.email == mail && a.password == password);
 
                 if (v != null)
                 {
