@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Http;
-using Service.Controllers;
 
 namespace Service.Controllers
 {
@@ -15,9 +14,9 @@ namespace Service.Controllers
         //
         // GET: /Meds/
 
-        public string Get(int id)
+        public string Get(int userId)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(db.Meds.Select(a => a.userId == id).ToList());
+            return Newtonsoft.Json.JsonConvert.SerializeObject(db.Meds.Select(a => a.userId == userId).ToList());
         }
 
         //
@@ -33,8 +32,8 @@ namespace Service.Controllers
 
             return;
         }
-
-        [HttpPut]
+        //przeliczyć dawki
+        [HttpPost]
         public void Edit(Med medicine)
         {
             var medtoremove = db.Meds.SingleOrDefault(a => a.medId == medicine.medId);
@@ -64,7 +63,7 @@ namespace Service.Controllers
         // POST: /Meds/Delete/5
 
         [HttpDelete]
-        public void DeleteConfirmed(int id)
+        public void Delete(int id)
         {            
             Med medicine = db.Meds.SingleOrDefault(a => a.medId == id);
             db.Meds.Remove(medicine);
