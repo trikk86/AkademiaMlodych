@@ -113,7 +113,7 @@ namespace WebApplication1.Controllers
                         var option = (int)doseDateNow.DayOfWeek;
                         if (option == 0) option = 7; //niedziela konwertowana intem zwraca 0
 
-                        if (frequency.Description.Contains(option.ToString()))
+                        if (medicine.FrequencyOptionValue.Contains(option.ToString()))
                         {
                             Dose dawka = new Dose { Date = doseDateNow, ifTaken = false };
                             doseList.Add(dawka);
