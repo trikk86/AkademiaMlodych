@@ -19,69 +19,6 @@
             false,
             false
         ]
-    },
-    {
-        id: "1",
-        drug_name: "Viagra",
-        dose: "4 pigułki",
-        what_time: "21:00",
-        how_long: "1",
-        start_day: "05/03/2016",
-        end_day: "05/03/2017",
-        comment: "",
-        freq: "2",
-        freq_opt: "",
-        freq_opts: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ]
-    },
-    {
-        id: "2",
-        drug_name: "Acodin",
-        dose: "wszystkie",
-        what_time: "19:00",
-        how_long: "1",
-        start_day: "05/03/2016",
-        end_day: "05/03/2017",
-        comment: "",
-        freq: "3",
-        freq_opt: "3",
-        freq_opts: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ]
-    },
-    {
-        id: "3",
-        drug_name: "Tran",
-        dose: "2 łyżeczki",
-        what_time: "07:30",
-        how_long: "10",
-        start_day: "05/03/2016",
-        end_day: "05/03/2017",
-        comment: "",
-        freq: "4",
-        freq_opt: "",
-        freq_opts: [
-            true,
-            false,
-            true,
-            false,
-            true,
-            false,
-            false
-        ]
     }
 ]
 
@@ -94,8 +31,39 @@ var counter = 4;
 
 var userID = 0;
 
+var med = new [];
+
 function getDoses() {
-    //TODO
+    var theUrl = "localhost:1234/" + userID;
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false);
+    xmlHttp.send(null);
+    med = JSON.parse(xmlHttp.responseText);
+
+    for (var i = 0; i < med.size() ; i++) {
+        var dose = {
+            id: med[i].medId,
+            drug_name: med[i].medName,
+            dose: med[i].amount,
+            what_time: "07:00",
+            how_long: "10",
+            start_day: "03/20/2016",
+            end_day: "",
+            comment: "",
+            freq: "1",
+            freq_opt: "",
+            freq_opts: [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ]
+        }
+    }
 
     return doses;
 }
