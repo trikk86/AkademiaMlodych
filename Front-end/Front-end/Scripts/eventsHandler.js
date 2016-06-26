@@ -2,7 +2,6 @@
 
 var user;
 
-var counter = 0;
 
 var userID = 1;
 
