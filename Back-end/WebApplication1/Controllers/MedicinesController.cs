@@ -4,24 +4,27 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using Service.Models;
+using System.Web.Http.Cors;
 
 namespace WebApplication1.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MedicineController : ApiController
     {
+
         private MedicinesStoreEntities db = new MedicinesStoreEntities();
 
         //
         // GET: /Medicines/
         [HttpGet]
-        [Route("/api/Medicine/")]
+        [Route("api/Medicine/")]
         public List<Medicine> Index()
         {
             return db.Medicines.ToList();
         }
 
         [HttpGet]
-        [Route("/api/Medicine/GetMedicinesForUser/{id}")]
+        [Route("api/Medicine/GetMedicinesForUser/{id}")]
         public List<Medicine> GetMedicines(int id)
         {
             var medicines = db.Medicines.Where(x => x.UserID == id);
@@ -32,7 +35,7 @@ namespace WebApplication1.Controllers
         //
         // GET: /Medicines/Details/5
         [HttpGet]
-        [Route("/api/Medicine/Details/{id}")]
+        [Route("api/Medicine/Details/{id}")]
         public Medicine Details(int id)
         {
             Medicine medicine = db.Medicines.Find(id);
@@ -43,7 +46,7 @@ namespace WebApplication1.Controllers
         //
         // POST: /Medicines/Create
         [HttpPost]
-        [Route("/api/Medicine/Create")] 
+        [Route("api/Medicine/Create")] 
         public void Create(Medicine medicine)
         {
             if (ModelState.IsValid)
@@ -55,7 +58,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/api/Medicine/GetDoses/{id}")]
+        [Route("api/Medicine/GetDoses/{id}")]
         public List<Dose> GetDoses(int id)  //pobiera dawki dla danego leku
         {
             var doses = db.Doses.Where(g => g.MedicineID == id);
@@ -126,7 +129,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/api/Medicine/DeleteDoses/{id}")]
+        [Route("api/Medicine/DeleteDoses/{id}")]
         public void DeleteDoses(int id)   //kasuje dawki dla danego leku
         {
             var dosesToDelete =
@@ -143,7 +146,7 @@ namespace WebApplication1.Controllers
         
         }
         [HttpGet]
-        [Route("/api/Medicine/TakeDose/{id}")]
+        [Route("api/Medicine/TakeDose/{id}")]
         public void TakeDose(int id) //funkcja "Weź lek - z aplikacji mobilnej"
         {
             db.Doses.Find(id).ifTaken = true;
@@ -155,7 +158,7 @@ namespace WebApplication1.Controllers
         //
         // POST: /Medicines/Edit/5
         [HttpPost]
-        [Route("/api/Medicine/Edit/{id}")]
+        [Route("api/Medicine/Edit/{id}")]
         public void Edit(Medicine medicine)
         {
             db.Entry(medicine).State = EntityState.Modified;
@@ -165,7 +168,7 @@ namespace WebApplication1.Controllers
         //
         // POST: /Medicines/Delete/5
         [HttpPost]
-        [Route("/api/Medicine/Delete/id")]
+        [Route("api/Medicine/Delete/id")]
         public void DeleteConfirmed(int id)
         {
             Medicine medicine = db.Medicines.Find(id);

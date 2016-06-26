@@ -1,71 +1,72 @@
-﻿var doses = [
-    {
-        id: "0",
-        drug_name: "Witamina C",
-        dose: "2 tabletki",
-        what_time: "07:00",
-        how_long: "10",
-        start_day: "03/20/2016",
-        end_day: "",
-        comment: "",
-        freq: "1",
-        freq_opt: "",
-        freq_opts: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ]
-    }
-]
+﻿var doses = new Array();
 
 var user = {
     ID: "0",
-    username: "vangradt",
+    username: "vangradt"
 }
 
 var counter = 4;
 
-var userID = 0;
+var userID = 2;
 
-var med = new [];
+var med = [];
+
+function formatAMPM(date) {
+    var hours = date.getUTCHours();
+    var minutes = date.getMinutes(); // the hour '0' should be '12'
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes;
+    return strTime;
+}
 
 function getDoses() {
-    var theUrl = "localhost:1234/" + userID;
+    $.ajax({
+        url: 'http://localhost:50643/api/Medicine/GetMedicinesForUser/' + userID,
+        type: 'GET',
+        dataType: 'json',
+        success: function (med) {
+            
 
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false);
-    xmlHttp.send(null);
-    med = JSON.parse(xmlHttp.responseText);
+            for (var i = 0; i < med.length; i++) {
+                var start = new Date(med[i].Beginning_Date);
+                var end = new Date(med[i].The_End_Date);
 
-    for (var i = 0; i < med.size() ; i++) {
-        var dose = {
-            id: med[i].medId,
-            drug_name: med[i].medName,
-            dose: med[i].amount,
-            what_time: "07:00",
-            how_long: "10",
-            start_day: "03/20/2016",
-            end_day: "",
-            comment: "",
-            freq: "1",
-            freq_opt: "",
-            freq_opts: [
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-            ]
+                var dose = {
+                    id: med[i].MedicineID,
+                    drug_name: med[i].Medicine_Name,
+                    dose: med[i].Amount,
+                    what_time: formatAMPM(start),
+                    start_day: (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear(),
+                    end_day: (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear(),
+                    how_long: med[i].Tolerance_Hour,
+                    comment: med[i].Comment,
+                    freq: med[i].FrequencyOptionId.toString()
+                }
+
+                if (dose.freq == "3") {
+                    dose.freq_opt = med[i].FrequencyOptionValue;
+                }
+
+                if (dose.freq == "4") {
+                    for (var i = 1; i < 8; i++) {
+                        if (med[i].FrequencyOptionValue.indexOf(i.toString()) > (-1)) {
+                            dose.freq_opts[i - 1] = true;
+                        }
+                    }
+                }
+
+                doses.push(dose);
+                alert(doses.length);
+            }
+            load_doses();
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
         }
-    }
+    });
 
-    return doses;
+    return;
 }
 
 function addDose(newdose) {
@@ -112,7 +113,7 @@ function compareDoses(dose1, dose2) {
         dose1.freq_opts[6] == dose2.freq_opts[6]
         ) {
         return true;
-    };
+    }
 
     return false;
 }
@@ -163,11 +164,8 @@ function load_doses() {
 
 $(window).load(function () {
     $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.username + '</p>');
-
-    doses = getDoses();
-    $('.alert').hide();
-
-    load_doses();
+    getDoses();
+    
     $("#save").hide();
 });
 

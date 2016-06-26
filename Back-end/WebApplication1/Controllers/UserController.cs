@@ -4,9 +4,11 @@ using System.Net;
 using System.Web.Http;
 using Service.Models;
 using WebApplication1.Models;
+using System.Web.Http.Cors;
 
 namespace WebApplication1.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserController : ApiController
     {
         private MedicinesStoreEntities db = new MedicinesStoreEntities();
@@ -14,7 +16,7 @@ namespace WebApplication1.Controllers
         //
         // GET: /User/
         [HttpGet]
-        [Route("/api/User/")]
+        [Route("api/User/")]
         public List<User> Index()
         {
             var users = db.Users.ToList();
@@ -24,7 +26,7 @@ namespace WebApplication1.Controllers
         //
         // GET: /User/Details/5
         [HttpGet]
-        [Route("/api/User/Details/{id}")]
+        [Route("api/User/Details/{id}")]
         public User Details(int id)
         {
             User user = db.Users.Find(id);
@@ -34,7 +36,7 @@ namespace WebApplication1.Controllers
         //
         // POST: /User/Create
         [HttpPost]
-        [Route("/api/User/Create")]
+        [Route("api/User/Create")]
         public void Create(User user)
         { 
                db.Users.Add(user);
