@@ -68,8 +68,8 @@ function getDoses() {
                     drug_name: med[i].Medicine_Name,
                     dose: med[i].Amount,
                     what_time: formatDate(start),
-                    start_day: ((start.getMonth() + 1) < 10 ? '0' + (start.getMonth() + 1) : (start.getMonth() + 1)) + "/" + ((start.getDate() + 1) < 10 ? '0' + (start.getDate() + 1) : (start.getDate() + 1)) + "/" + start.getFullYear(),
-                    end_day: ((end.getMonth() + 1) < 10 ? '0' + (end.getMonth() + 1) : (end.getMonth() + 1)) + "/" + ((end.getDate() + 1) < 10 ? '0' + (end.getDate() + 1) : (end.getDate() + 1)) + "/" + end.getFullYear(),
+                    start_day: ((start.getMonth() + 1) < 10 ? '0' + (start.getMonth() + 1) : (start.getMonth() + 1)) + "/" + (((start.getDate() + 1) < 10 ? '0' + (start.getDate() + 1) : (start.getDate() + 1)) - 1) + "/" + start.getFullYear(),
+                    end_day: ((end.getMonth() + 1) < 10 ? '0' + (end.getMonth() + 1) : (end.getMonth() + 1)) + "/" + (((end.getDate() + 1) < 10 ? '0' + (end.getDate() + 1) : (end.getDate() + 1)) - 1) + "/" + end.getFullYear(),
                     how_long: med[i].Tolerance_Hour,
                     comment: med[i].Comment,
                     freq: med[i].FrequencyOptionId.toString(),
@@ -522,78 +522,18 @@ function loadCalendar() {
 
         var popover = "";
 
-        for (var j = 0; j < doses.length; j++) {
-            var dose = doses[j];
+        for (var j = 0; j < meds.length; j++) {
 
-            var startDate = new Date(dose.start_day);
+            for (var k = 0; k < meds[j].Doses.length; k++) {
 
-            if (dose.end_day != "") {
-                var endDate = new Date(dose.end_day);
+                var dose = meds[j].Doses[k];
 
+                var actDate = new Date(dose.Date);
 
-
-                if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
-                    if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    var diffTime = newdate.getTime() - startDate.getTime();
-
-                    var diffDate = new Date();
-
-                    diffDate.setTime(diffTime);
-
-                    var diffDays = diffDate.getDate();
-
-                    if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
+                if (newdate.getFullYear() == actDate.getFullYear() && newdate.getMonth() == actDate.getMonth() && newdate.getDate() == actDate.getDate()) {
+                    popover += formatDate(actDate) + ' ' + meds[j].Medicine_Name + '<br/>';
                 }
-            }
-            else {
-                if (newdate.getTime() >= startDate.getTime()) {
-                    if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-
-                    }
-
-                    var diffTime = newdate.getTime() - startDate.getTime();
-
-                    var diffDate = new Date();
-
-                    diffDate.setTime(diffTime);
-
-                    var diffDays = diffDate.getDate();
-
-                    if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-
-                    }
-
-                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-                }
             }
         }
 
@@ -634,80 +574,25 @@ function loadCalendar() {
 
         var popover = "";
 
-        for (var j = 0; j < doses.length; j++) {
-            var dose = doses[j];
+        for (var j = 0; j < meds.length; j++) {
 
-            var startDate = new Date(dose.start_day);
+            for (var k = 0; k < meds[j].Doses.length; k++) {
 
-            if (dose.end_day != "") {
-                var endDate = new Date(dose.end_day);
+                var dose = meds[j].Doses[k];
 
+                var actDate = new Date(dose.Date);
 
+                if (newdate.getFullYear() == actDate.getFullYear() && newdate.getMonth() == actDate.getMonth() && newdate.getDate() == actDate.getDate()) {
+                    popover += formatDate(actDate) + ' ' + meds[j].Medicine_Name + " ";
 
-                if (newdate.getTime() >= startDate.getTime() && newdate.getTime() <= endDate.getTime()) {
-                    if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-
+                    if (meds[j].Doses[k].ifTaken) {
+                        popover += "<span class='glyphicon glyphicon-ok'></span>" + "</br>";
                     }
-
-                    var diffTime = newdate.getTime() - startDate.getTime();
-
-                    var diffDate = new Date();
-
-                    diffDate.setTime(diffTime);
-
-                    var diffDays = diffDate.getDate();
-
-                    if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-
-                    }
-
-                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
+                    else {
+                        popover += "<span class='glyphicon glyphicon-remove'></span>" + "</br>";
                     }
                 }
-            }
-            else {
-                if (newdate.getTime() >= startDate.getTime()) {
-                    if (dose.freq == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
 
-
-                    }
-
-                    var diffTime = newdate.getTime() - startDate.getTime();
-
-                    var diffDate = new Date();
-
-                    diffDate.setTime(diffTime);
-
-                    var diffDays = diffDate.getDate();
-
-                    if (dose.freq == 2 && diffDays % 7 == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-
-                    if (dose.freq == 3 && diffDays % dose.freq_opt == 1) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-
-                    }
-
-                    if (dose.freq == 4 && dose.freq_opts[(newdate.getDay() + 6) % 7]) {
-                        popover += dose.what_time + ' ' + dose.drug_name + '<br/>';
-
-                    }
-                }
             }
         }
 
