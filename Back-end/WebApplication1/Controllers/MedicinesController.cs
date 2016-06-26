@@ -47,14 +47,11 @@ namespace WebApplication1.Controllers
         // POST: /Medicines/Create
         [HttpPost]
         [Route("api/Medicine/Create")] 
-        public void Create(Medicine medicine)
+        public void Create([FromBody]Medicine medicine)
         {
-            if (ModelState.IsValid)
-            {
-                db.Medicines.Add(medicine);
-                medicine.Doses = CreateDoses(medicine.MedicineID);
-                db.SaveChanges();
-            }
+            medicine.Doses = CreateDoses(medicine);
+            db.Medicines.Add(medicine);
+            db.SaveChanges();
         }
 
         [HttpGet]
@@ -66,11 +63,9 @@ namespace WebApplication1.Controllers
             return doses.ToList();
         }
 
-        private List<Dose> CreateDoses(int id)    // tworzy dawki dla danego leku
+        private List<Dose> CreateDoses(Medicine medicine)    // tworzy dawki dla danego leku
 
         {
-            Medicine medicine = db.Medicines.Find(id);
-            Frequency frequency = db.Frequency.Find(medicine.FrequencyOptionId);
             DateTime doseDate = medicine.Beginning_Date;
             TimeSpan difference = medicine.The_End_Date - medicine.Beginning_Date;
 

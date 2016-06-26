@@ -1,19 +1,19 @@
 ﻿var doses = new Array();
 
 var user = {
-    ID: "0",
+    ID: "2",
     username: "vangradt"
 }
 
-var counter = 4;
+var counter = 0;
 
 var userID = 2;
 
-var med = [];
+var meds = [];
 
-function formatAMPM(date) {
+function formatDate(date) {
     var hours = date.getUTCHours();
-    var minutes = date.getMinutes(); // the hour '0' should be '12'
+    var minutes = date.getMinutes();
     hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     var strTime = hours + ':' + minutes;
@@ -36,29 +36,33 @@ function getDoses() {
                     id: med[i].MedicineID,
                     drug_name: med[i].Medicine_Name,
                     dose: med[i].Amount,
-                    what_time: formatAMPM(start),
-                    start_day: (start.getMonth() + 1) + "/" + start.getDate() + "/" + start.getFullYear(),
-                    end_day: (end.getMonth() + 1) + "/" + end.getDate() + "/" + end.getFullYear(),
+                    what_time: formatDate(start),
+                    start_day: ((start.getMonth() + 1) < 10 ? '0' + (start.getMonth() + 1) : (start.getMonth() + 1)) + "/" + ((start.getDate() + 1) < 10 ? '0' + (start.getDate() + 1) : (start.getDate() + 1)) + "/" + start.getFullYear(),
+                    end_day: ((end.getMonth() + 1) < 10 ? '0' + (end.getMonth() + 1) : (end.getMonth() + 1)) + "/" + ((end.getDate() + 1) < 10 ? '0' + (end.getDate() + 1) : (end.getDate() + 1)) + "/" + end.getFullYear(),
                     how_long: med[i].Tolerance_Hour,
                     comment: med[i].Comment,
-                    freq: med[i].FrequencyOptionId.toString()
+                    freq: med[i].FrequencyOptionId.toString(),
+                    freq_opt: new String,
+                    freq_opts: new Array(7)
                 }
 
                 if (dose.freq == "3") {
                     dose.freq_opt = med[i].FrequencyOptionValue;
                 }
 
+                var freqopt = med[i].FrequencyOptionValue;
+
                 if (dose.freq == "4") {
                     for (var i = 1; i < 8; i++) {
-                        if (med[i].FrequencyOptionValue.indexOf(i.toString()) > (-1)) {
+                        if (freqopt.indexOf(i.toString()) > (-1)) {
                             dose.freq_opts[i - 1] = true;
                         }
                     }
                 }
 
                 doses.push(dose);
-                alert(doses.length);
             }
+            meds = med.slice();
             load_doses();
         },
         error: function (x, y, z) {
@@ -70,13 +74,36 @@ function getDoses() {
 }
 
 function addDose(newdose) {
-    JSON.stringify(newdose);
+    var med = {
+        UserID: userID,
+        Medicine_Name: newdose.drug_name,
+        Amount: newdose.dose,
+        Comment: newdose.comment,
+        Beginning_Date: newdose.start_day + " " + newdose.what_time,
+        The_End_Date: newdose.end_day + " " + newdose.what_time,
+        Tolerance_Hour: parseInt(newdose.how_long),
+        FrequencyOptionId: parseInt(newdose.freq),
+        FrequencyOptionValue: "1,2,4"
+    }
 
-    ifSuccess = true;
+    for (var i = 0 ; i < 7; i++) {
 
-    //TODO
+    }
 
-    return ifSuccess;
+    $.ajax({
+        url: 'http://localhost:50643/api/Medicine/Create',
+        type: 'POST',
+        dataType: 'json',
+        data: med,
+        success: function (med) {
+            return true;
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+            return false;
+        }
+    });
+    return true;
 }
 
 var days_of_week = [
@@ -123,7 +150,7 @@ function load_doses() {
 
     var freq = "";
 
-    for (i = 0; i < doses.length; i++) {
+    for (var i = 0; i < doses.length; i++) {
 
         switch (doses[i].freq) {
             case "1":
@@ -157,7 +184,7 @@ function load_doses() {
                 '</div>' +
             '</a>'
          );
-    }
+}
 
     loadCalendar();
 }
@@ -174,6 +201,8 @@ $(window).load(function () {
 function add() {
 
     event.preventDefault();
+
+    $('.alert').hide();
 
     var form = document.forms[0];
 
@@ -243,7 +272,12 @@ function add() {
 }
 
 function duplicate(id) {
+    
     $(document).ready();
+
+    $('.alert').hide();
+
+    document.forms[0].reset();
 
     var i = 0;
 
@@ -252,6 +286,11 @@ function duplicate(id) {
     }
 
     var dose = doses[i];
+
+    if (dose.drug_name == "" || dose.dose == "" || dose.what_time == "" || dose.how_long == "" || dose.start_day == "" || (dose.freq == 3 && dose.freq_opts == "") || (dose.freq == 4 && (!dose.freq_opts[0] && !dose.freq_opts[1] && !dose.freq_opts[2] && !dose.freq_opts[3] && !dose.freq_opts[4] && !dose.freq_opts[5] && !dose.freq_opts[6]))) {
+        $('.alert').show();
+        return;
+    }
     
     document.forms[0].id.value = dose.id;
     document.forms[0].drug_name.value = dose.drug_name;
@@ -293,6 +332,10 @@ function duplicate(id) {
 function edit(id) {
     $(document).ready();
 
+    $('.alert').hide();
+
+    document.forms[0].reset();
+
     var i = 0;
 
     while (doses[i].id != id) {
@@ -300,6 +343,11 @@ function edit(id) {
     }
 
     var dose = doses[i];
+
+    if (dose.drug_name == "" || dose.dose == "" || dose.what_time == "" || dose.how_long == "" || dose.start_day == "" || (dose.freq == 3 && dose.freq_opts == "") || (dose.freq == 4 && (!dose.freq_opts[0] && !dose.freq_opts[1] && !dose.freq_opts[2] && !dose.freq_opts[3] && !dose.freq_opts[4] && !dose.freq_opts[5] && !dose.freq_opts[6]))) {
+        $('.alert').show();
+        return;
+    }
 
     document.forms[0].id.value = dose.id;
     document.forms[0].drug_name.value = dose.drug_name;
@@ -383,6 +431,11 @@ function saveDose() {
             form.freq_opt6.checked,
             form.freq_opt7.checked,
         ]
+    }
+
+    if (newDose.drug_name == "" || newDose.dose == "" || newDose.what_time == "" || newDose.how_long == "" || newDose.start_day == "" || (newDose.freq == 3 && newDose.freq_opts == "") || (newDose.freq == 4 && (!newDose.freq_opts[0] && !newDose.freq_opts[1] && !newDose.freq_opts[2] && !newDose.freq_opts[3] && !newDose.freq_opts[4] && !newDose.freq_opts[5] && !newDose.freq_opts[6]))) {
+        $('.alert').show();
+        return;
     }
 
     doses.splice(i, 1);
