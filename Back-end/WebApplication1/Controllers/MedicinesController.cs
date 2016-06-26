@@ -162,11 +162,12 @@ namespace WebApplication1.Controllers
 
         //
         // POST: /Medicines/Delete/5
-        [HttpPost]
-        [Route("api/Medicine/Delete/id")]
+        [HttpGet]
+        [Route("api/Medicine/Delete/{id}")]
         public void DeleteConfirmed(int id)
         {
             Medicine medicine = db.Medicines.Find(id);
+            DeleteDoses(id);
             db.Medicines.Remove(medicine);
             db.SaveChanges();
         }

@@ -1,13 +1,10 @@
 ﻿var doses = new Array();
 
-var user = {
-    ID: "2",
-    username: "vangradt"
-}
+var user;
 
 var counter = 0;
 
-var userID = 2;
+var userID = 1;
 
 var meds = [];
 
@@ -20,7 +17,42 @@ function formatDate(date) {
     return strTime;
 }
 
+function getUser() {
+    $.ajax({
+        url: 'http://localhost:50643/api/User/Details/' + userID,
+        type: 'GET',
+        dataType: 'json',
+        success: function (userDetails) {
+            user = userDetails;
+            $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.Name + " " + user.Surname + '</p>');
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+}
+
+function deleteMed(A) {
+    $.ajax({
+        url: 'http://localhost:50643/api/Medicine/Delete/' + A,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $("#list").empty();
+            getDoses();
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+
+    $("#list").empty();
+    getDoses();
+}
+
 function getDoses() {
+    $("#list").empty();
+    doses = [];
     $.ajax({
         url: 'http://localhost:50643/api/Medicine/GetMedicinesForUser/' + userID,
         type: 'GET',
@@ -70,6 +102,8 @@ function getDoses() {
         }
     });
 
+    load_doses();
+
     return;
 }
 
@@ -83,11 +117,17 @@ function addDose(newdose) {
         The_End_Date: newdose.end_day + " " + newdose.what_time,
         Tolerance_Hour: parseInt(newdose.how_long),
         FrequencyOptionId: parseInt(newdose.freq),
-        FrequencyOptionValue: "1,2,4"
     }
+    if (med.FrequencyOptionId == 3) {
+        med.FrequencyOptionValue = newdose.freq_opt;
+    }
+    if (med.FrequencyOptionId == 4) {
+        med.FrequencyOptionValue = "";
 
-    for (var i = 0 ; i < 7; i++) {
-
+        for (var i = 0 ; i < 7; i++) {
+            if (newdose.freq_opts[i])
+                med.FrequencyOptionValue += (i + 1).toString() + ",";
+        }
     }
 
     $.ajax({
@@ -95,12 +135,11 @@ function addDose(newdose) {
         type: 'POST',
         dataType: 'json',
         data: med,
-        success: function (med) {
-            return true;
+        success: function (id) {
+            getDoses();
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
-            return false;
         }
     });
     return true;
@@ -172,15 +211,15 @@ function load_doses() {
         }
 
         $("#list").prepend(
-    '<a data-toggle="collapse" href="#detail' + i + '" class="list-group-item" id="' + i + '">' +
+    '<a data-toggle="collapse" href="#detail' + doses[i].id + '" class="list-group-item" id="' + doses[i].id + '">' +
                 '<h4>' + doses[i].drug_name + '</h4>' +
-                '<div id="detail' + i + '" class="collapse">' +
+                '<div id="detail' + doses[i].id + '" class="collapse">' +
                     '<p><b>Godzina: </b>' + doses[i].what_time + '</p>' +
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
                     '<span data-toggle="modal" data-target="#form"><button data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Edytuj" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button></span>' + " " +
                     '<span  data-toggle="modal" data-target="#form"><button type="button" data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Duplikuj" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button></span>' + " " +
-                    '<button type="button" data-toggle="tooltip" data-placement="bottom" title="Usuń" class="btn btn-danger" onclick="$(\'#' + i + '\').remove(); doses.splice(' + i + ', 1); load_doses();"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
+                    '<button type="button" data-toggle="tooltip" data-placement="bottom" title="Usuń" class="btn btn-danger" onclick="deleteMed(' + doses[i].id + ')"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
                 '</div>' +
             '</a>'
          );
@@ -190,7 +229,8 @@ function load_doses() {
 }
 
 $(window).load(function () {
-    $('#infobox').prepend('<button style="float:right" type="button" onclick="location.href=\'login.html\';" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span></button><p>Zalogowany jako ' + user.username + '</p>');
+    getUser();
+
     getDoses();
     
     $("#save").hide();
@@ -217,7 +257,6 @@ function add() {
     }
 
     var newDose = {
-        id: counter,
         drug_name: form.drug_name.value,
         dose: form.dose.value,
         what_time: form.what_time.value,
@@ -252,16 +291,7 @@ function add() {
     }
 
     if (!alreadyOn) {
-        if (addDose(newDose)) {
-            doses.push(newDose);
-
-            counter++;
-
-            load_doses();
-        }
-        else {
-            alert("Błąd!");
-        }
+        addDose(newDose);
     }
 
     $('#form').modal('hide');
