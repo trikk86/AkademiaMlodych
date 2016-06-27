@@ -84,9 +84,9 @@ function getDoses() {
                 var freqopt = med[i].FrequencyOptionValue;
 
                 if (dose.freq == "4") {
-                    for (var i = 1; i < 8; i++) {
+                    for (var j = 1; j < 8; j++) {
                         if (freqopt.indexOf(i.toString()) > (-1)) {
-                            dose.freq_opts[i - 1] = true;
+                            dose.freq_opts[j - 1] = true;
                         }
                     }
                 }
