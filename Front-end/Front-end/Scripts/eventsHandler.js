@@ -217,7 +217,7 @@ function load_doses() {
                     '<p><b>Dawka: </b>' + doses[i].dose + '</p>' +
                     '<p><b>Częstotliwość: </b>' + freq + '</p>' +
                     '<span data-toggle="modal" data-target="#form"><button data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Edytuj" type="button" class="btn btn-primary" onclick="edit(' + doses[i].id + ')"><span class="glyphicon glyphicon-pencil"></span></button></span>' + " " +
-                    '<span  data-toggle="modal" data-target="#form"><button type="button" data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Duplikuj" class="btn btn-success" onclick="duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button></span>' + " " +
+                    '<span  data-toggle="modal" data-target="#form"><button type="button" data-placement="bottom" data-toggle="tooltip" href="javascript://" title="Duplikuj" class="btn btn-success" onclick="$(\'#save\').hide(); $(\'#submit\').show(); duplicate(' + doses[i].id + ')"><span class="glyphicon glyphicon-duplicate"></span></button></span>' + " " +
                     '<button type="button" data-toggle="tooltip" data-placement="bottom" title="Usuń" class="btn btn-danger" onclick="deleteMed(' + doses[i].id + ')"><span class="glyphicon glyphicon-trash"></span></button>' + " " +
                 '</div>' +
             '</a>'
